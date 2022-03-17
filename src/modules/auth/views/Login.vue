@@ -60,14 +60,13 @@ export default {
             await this.login(this.user)
             this.$router.push(this.$route.query.redirect || { name: 'dashboard' })
          } catch (error) {
-            console.log(error)
             const { status } = error.response
             const errorResponse = error.response.data.errors
 
             if (status === 422) {
                this.errors = Object.assign(this.errors, errorResponse)
             } else if (status === 404) {
-               this.errors = Object.assign(this.errors, errorResponse)
+               this.$toast.error('Credenciais Inválidas!')
             }
          } finally {
             this.loading = false

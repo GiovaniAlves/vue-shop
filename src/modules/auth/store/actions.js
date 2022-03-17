@@ -7,9 +7,9 @@ export default {
       return response
    },
 
-   login ({ commit }, user) {
-      const { data } = axiosClient.post('/login', user)
-      commit('SET_USER', data)
-      return data
+   async login ({ commit }, user) {
+      const response = await axiosClient.post('/login', user)
+      commit('SET_USER', response.data)
+      return response
    }
 }
