@@ -31,9 +31,9 @@
                            <i class="fas fa-user me-2"></i>John Doe
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                           <li><a class="dropdown-item" href="#">Perfil</a></li>
-                           <li><a class="dropdown-item" href="#">Notificações <span class="badge bg-primary">10</span>
-                           </a></li>
+                           <li><a class="dropdown-item" href="#">Notificações <span
+                              class="badge bg-primary">10</span></a></li>
+                           <li><span class="dropdown-item cursor-pointer" @click="logout">Sair</span></li>
                         </ul>
                      </li>
                   </ul>
@@ -48,18 +48,30 @@
          <!-- PAGE CONTENT END -->
       </div>
 
-      <Footer />
+      <Footer/>
    </div>
 </template>
 
 <script>
 import Sidebar from '@/layouts/components/Dashboard/Sidebar'
 import Footer from '@/layouts/components/Footer'
+import store from '@/store'
 
 export default {
    name: 'Dashboard',
-   components: { Footer, Sidebar },
+   components: {
+      Footer,
+      Sidebar
+   },
    methods: {
+      logout () {
+         try {
+            store.dispatch('logout')
+            this.$router.push({ name: 'login' })
+         } catch (e) {
+            console.log('Error logout...:', e)
+         }
+      },
       toggleSideBar () {
          // eslint-disable-next-line no-undef
          $('#wrapper').toggleClass('toggled')
@@ -70,4 +82,7 @@ export default {
 
 <style scoped>
 @import url('./../assets/css/dashboardStyle.css');
+.cursor-pointer {
+   cursor: pointer;
+}
 </style>

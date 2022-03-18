@@ -32,8 +32,7 @@ export default {
             { title: 'Painel', icon: 'bi bi-speedometer2', url: 'dashboard', exact: true },
             { title: 'Produtos', icon: 'bi bi-gift', urlName: 'products', exact: true },
             { title: 'Pedidos', icon: 'bi bi-cart', urlName: 'orders', exact: true },
-            { title: 'Relatórios', icon: 'bi bi-paperclip', urlName: 'reports', exact: true },
-            { title: 'Sair', icon: 'bi bi-box-arrow-right', urlName: '', exact: true }
+            { title: 'Relatórios', icon: 'bi bi-paperclip', urlName: 'reports', exact: true }
          ]
       }
    }

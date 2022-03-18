@@ -8,6 +8,6 @@ export default {
    LOGOUT (state) {
       state.user.data = {}
       state.user.token = null
-      // localStorage.setItem('TOKEN_VUE_SHOP', null)
+      localStorage.removeItem('TOKEN_VUE_SHOP')
    }
 }
