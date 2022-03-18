@@ -12,6 +12,7 @@ export default [
          {
             path: '/painel',
             name: 'dashboard',
+            meta: { requiresAuth: true, isAdmin: true },
             component: Home,
             children: [
                ...ordersRoutes,

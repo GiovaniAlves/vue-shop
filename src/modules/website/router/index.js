@@ -10,7 +10,7 @@ export default [
       component: () => import('@/layouts/Website'),
       children: [
          { path: '/carrinho', name: 'cart', component: Cart },
-         { path: '/pagamento', name: 'checkout', component: Checkout },
+         { path: '/pagamento', name: 'checkout', meta: { requiresAuth: true }, component: Checkout },
          { path: '/home', name: 'home', component: Home },
          { path: '/catalogo-produtos', name: 'productsCatalog', component: Products },
          { path: '/detalhes-produto', name: 'productDetail', component: ProductDetail }

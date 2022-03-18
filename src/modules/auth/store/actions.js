@@ -13,6 +13,14 @@ export default {
       return response
    },
 
+   async user () {
+      return await axiosClient.post('/auth/user')
+   },
+
+   async painelProduct () {
+      return await axiosClient.get('/auth/product')
+   },
+
    async logout ({ commit }) {
       const response = await axiosClient.post('/auth/logout')
       commit('LOGOUT', response.data)
