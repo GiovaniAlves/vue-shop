@@ -1,1 +1,2 @@
 require('./VueToastification')
+require('./CompositionApi')

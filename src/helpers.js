@@ -1,5 +1,7 @@
-const AUTH_TOKEN = 'TOKEN_VUE_SHOP'
+const AUTH_TOKEN = 'token_vue_shop'
+const USER_AUTHENTICATED = 'user_vue_shop'
 
 export {
-   AUTH_TOKEN
+   AUTH_TOKEN,
+   USER_AUTHENTICATED
 }
