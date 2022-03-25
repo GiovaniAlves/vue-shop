@@ -29,9 +29,9 @@ export default {
    data () {
       return {
          items: [
-            { title: 'Painel', icon: 'bi bi-speedometer2', url: 'dashboard', exact: true },
-            { title: 'Produtos', icon: 'bi bi-gift', urlName: 'products', exact: true },
-            { title: 'Pedidos', icon: 'bi bi-cart', urlName: 'orders', exact: true },
+            { title: 'Painel', icon: 'bi bi-speedometer2', urlName: 'dashboard', exact: true },
+            { title: 'Produtos', icon: 'bi bi-gift', urlName: 'specifications', exact: true },
+            { title: 'Vendas', icon: 'bi bi-cart', urlName: 'sales', exact: true },
             { title: 'Relatórios', icon: 'bi bi-paperclip', urlName: 'reports', exact: true }
          ]
       }

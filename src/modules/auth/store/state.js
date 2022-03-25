@@ -1,6 +1,8 @@
+import { AUTH_TOKEN, USER_AUTHENTICATED } from '@/helpers'
+
 export default {
    user: {
-      data: {},
-      token: localStorage.getItem('TOKEN_VUE_SHOP')
+      data: JSON.parse(localStorage.getItem(USER_AUTHENTICATED)) || {},
+      token: localStorage.getItem(AUTH_TOKEN)
    }
 }

@@ -1,28 +1,24 @@
-import axiosClient from '@/axios'
+import AuthService from '@/modules/auth/services/auth-service'
 
 export default {
    async register ({ commit }, user) {
-      const response = await axiosClient.post('/register', user)
+      const response = await AuthService.register(user)
       commit('SET_USER', response.data)
       return response
    },
 
    async login ({ commit }, user) {
-      const response = await axiosClient.post('/login', user)
+      const response = await AuthService.login(user)
       commit('SET_USER', response.data)
       return response
    },
 
    async user () {
-      return await axiosClient.post('/auth/user')
-   },
-
-   async painelProduct () {
-      return await axiosClient.get('/auth/product')
+      return await AuthService.user()
    },
 
    async logout ({ commit }) {
-      const response = await axiosClient.post('/auth/logout')
+      const response = await AuthService.logout()
       commit('LOGOUT', response.data)
       return response
    }

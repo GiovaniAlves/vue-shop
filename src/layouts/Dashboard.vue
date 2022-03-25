@@ -14,7 +14,7 @@
                      class="bi bi-justify-left fs-2 me-3"
                      id="menu-toggle"
                   ></i>
-                  <h2 class="fs-2 m-0"> Dashboard</h2>
+                  <h2 class="fs-2 m-0"> {{ title || 'Painel' }} </h2>
                </div>
 
                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -24,15 +24,15 @@
                </button>
 
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav ms-auto mb-2 mx-4 mb-lg-0">
+                  <ul class="navbar-nav ms-auto mb-2 mx-5 mb-lg-0">
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                           <i class="fas fa-user me-2"></i>John Doe
+                           <i class="fas fa-user me-2"></i>{{ user.name }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                            <li><a class="dropdown-item" href="#">Notificações <span
-                              class="badge bg-primary">10</span></a></li>
+                              class="badge bg-primary">100</span></a></li>
                            <li><span class="dropdown-item cursor-pointer" @click="logout">Sair</span></li>
                         </ul>
                      </li>
@@ -56,12 +56,19 @@
 import Sidebar from '@/layouts/components/Dashboard/Sidebar'
 import Footer from '@/layouts/components/Footer'
 import store from '@/store'
+import { mapState } from 'vuex'
 
 export default {
    name: 'Dashboard',
    components: {
       Footer,
       Sidebar
+   },
+   computed: {
+      ...mapState({
+         user: state => state.auth.user.data,
+         title: state => state.title
+      })
    },
    methods: {
       logout () {
@@ -82,6 +89,7 @@ export default {
 
 <style scoped>
 @import url('./../assets/css/dashboardStyle.css');
+
 .cursor-pointer {
    cursor: pointer;
 }

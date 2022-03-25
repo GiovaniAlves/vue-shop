@@ -1,6 +1,7 @@
-import ordersRoutes from './../modules/orders/router'
+import salesRoutes from './../modules/sales/router'
 import productsRoutes from './../modules/products/router'
 import reportsRoutes from './../modules/reports/router'
+import specificationsRoutes from './../modules/specifications/router'
 
 const Home = () => import('../views/Home.vue')
 
@@ -8,6 +9,7 @@ export default [
    {
       path: '',
       component: () => import('@/layouts/Dashboard'),
+      props: { page: 'Painel' },
       children: [
          {
             path: '/painel',
@@ -15,9 +17,10 @@ export default [
             meta: { requiresAuth: true, isAdmin: true },
             component: Home,
             children: [
-               ...ordersRoutes,
+               ...salesRoutes,
                ...productsRoutes,
-               ...reportsRoutes
+               ...reportsRoutes,
+               ...specificationsRoutes
             ]
          }
       ]

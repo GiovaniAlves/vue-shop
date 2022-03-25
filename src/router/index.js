@@ -38,7 +38,7 @@ router.beforeEach(async (to, from, next) => {
             await store.dispatch('user')
 
             // só podem acessar o painel usuários adm
-            if (to.matched.some(route => route.meta.isAdmin)) {
+            /* if (to.matched.some(route => route.meta.isAdmin)) {
                try {
                   await store.dispatch('painelProduct')
                   return next()
@@ -46,7 +46,7 @@ router.beforeEach(async (to, from, next) => {
                   // console.log('Permission error:', e)
                   return next({ name: 'home' })
                }
-            }
+            } */
 
             return next()
          } catch (e) {
