@@ -1,14 +1,14 @@
 export default {
-   specifications: {
+   products: {
       data: [],
       loading: false,
       links: {
          data: [],
-         firstPage: '',
+         fisrtPage: '',
          lastPage: ''
       }
    },
-   currentSpecification: {
+   currentProduct: {
       data: {},
       loading: false
    }

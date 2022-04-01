@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from '@/modules/auth/store'
 import specification from '@/modules/dashboard/modules/specifications/store'
+import product from '@/modules/dashboard/modules/products/store'
 
 Vue.use(Vuex)
 
@@ -27,6 +28,7 @@ export default new Vuex.Store({
    actions,
    modules: {
       auth,
-      specification
+      specification,
+      product
    }
 })

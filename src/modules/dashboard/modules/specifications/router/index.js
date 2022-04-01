@@ -8,12 +8,12 @@ export default [
       component: SpecificationsHome
    },
    {
-      path: 'espeficacoes/cadastrar',
+      path: 'espeficacao/cadastrar',
       name: 'specificationsCreate',
       component: SpecificationsForm
    },
    {
-      path: 'espeficacoes/:id',
+      path: 'espeficacao/:id',
       name: 'specificationsEdit',
       component: SpecificationsForm
    }

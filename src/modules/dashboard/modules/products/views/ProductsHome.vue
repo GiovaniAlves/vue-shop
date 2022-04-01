@@ -1,104 +1,79 @@
 <template>
-   <div class="card">
+   <div>
+      <div v-if="loadingProducts" class="d-flex justify-content-center">Carregando...</div>
+      <div v-else class="card">
 
-      <div class="card-header">
-         <router-link
-            :to="{ name: 'productsCreate' }"
-            class="btn btn-primary btn-sm"
-         >
-            Cadastrar Produto
-         </router-link>
-      </div>
+         <div class="card-header">
+            <router-link
+               :to="{ name: 'productsCreate' }"
+               class="btn btn-primary btn-sm"
+            >
+               Cadastrar Produto
+            </router-link>
+         </div>
 
-      <div class="card-body table-responsive">
-         <table class="table table-bordered" style="border-radius: 50px">
-            <thead>
-            <tr>
-               <th style="width: 10px">#</th>
-               <th>Tarefa</th>
-               <th>Progredindo</th>
-               <th>Mais</th>
-               <th style="width: 120px">Ações</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-               <td>1</td>
-               <td>Update software</td>
-               <td>
-                  Lorem ipsum dolor sit amet, consm quisquam repellendus repudiandae sed voluptatibus?
-               </td>
-               <td>
-                  Lorem ipsum dolor sit amet, consm quisquam
-               </td>
-               <td>
-                  <button class="btn btn-primary btn-sm mx-2"><i class="bi bi-pencil-square"></i></button>
-                  <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
-               </td>
-            </tr>
-            <tr>
-               <td>2</td>
-               <td>
-                  Lorem ipsum dolor
-               </td>
-               <td>
-                  Lorem ipsum dolor sit amet, consm quisquam repellendus repudiandae sed voluptatibus?
-               </td>
-               <td>
-                  Lorem ipsum dolor sit amet, consm quisquam
-               </td>
-               <td>
-                  <button class="btn btn-primary btn-sm mx-2"><i class="bi bi-pencil-square"></i></button>
-                  <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
-               </td>
-            </tr>
-            <tr>
-               <td>3</td>
-               <td>Cron job running</td>
-               <td>
-                  Lorem ipsum dolor sit amet, consm quisquam repellendus repudiandae sed voluptatibus?
-               </td>
-               <td>
-                  Lorem ipsum dolor sit amet, consm quisquam
-               </td>
-               <td>
-                  <button class="btn btn-primary btn-sm mx-2"><i class="bi bi-pencil-square"></i></button>
-                  <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
-               </td>
-            </tr>
-            <tr>
-               <td>4</td>
-               <td>Fix and squish bugs</td>
-               <td>
-                  Lorem ipsum dolor sit amet, consm quisquam repellendus repudiandae sed voluptatibus?
-               </td>
-               <td>
-                  Lorem ipsum dolor sit amet, consm quisquam
-               </td>
-               <td>
-                  <button class="btn btn-primary btn-sm mx-2"><i class="bi bi-pencil-square"></i></button>
-                  <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
-               </td>
-            </tr>
-            </tbody>
-         </table>
+         <div class="card-body table-responsive">
+            <table class="table table-bordered" style="border-radius: 50px">
+               <thead>
+               <tr>
+                  <th style="width: 50px">Cod.</th>
+                  <th>Nome</th>
+                  <th>Preço</th>
+                  <th>Quantidade</th>
+                  <th>Categoria</th>
+                  <th style="width: 120px">Ações</th>
+               </tr>
+               </thead>
+               <tbody>
+               <tr v-for="product in products.data" :key="product.id">
+                  <td>{{ product.id }}</td>
+                  <td>{{ product.name }}</td>
+                  <td>R$ {{ product.price | format_price_br }}</td>
+                  <td>{{ product.quantity }}</td>
+                  <td>{{ product.category }}</td>
+                  <td>
+                     <router-link :to="{ name: 'productsEdit', params: { id: product.id } }"
+                                  class="btn btn-primary btn-sm mx-sm-1">
+                        <i class="bi bi-pencil-square"></i>
+                     </router-link>
+                     <button @click="deleteProduct(product)" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                  </td>
+               </tr>
+               </tbody>
+            </table>
+         </div>
+         <Pagination :links="products.links"/>
       </div>
-      <Pagination/>
    </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 import Pagination from '@/modules/dashboard/components/Pagination'
-import { mapActions } from 'vuex'
+import store from '@/store'
 
 export default {
    name: 'ProductsHome',
    components: { Pagination },
+   computed: {
+      ...mapState({
+         loadingProducts: state => state.product.products.loading,
+         products: state => state.product.products
+      })
+   },
    created () {
       this.setTitle({ title: 'Produtos' })
+      this.getProducts()
    },
    methods: {
-      ...mapActions(['setTitle'])
+      ...mapActions(['getProducts', 'setTitle']),
+      deleteProduct (product) {
+         if (confirm(`Deseja realmente excluir o produto ${product.name}?`)) {
+            store.dispatch('deleteProduct', product.id).then(() => {
+               this.$toast.success('Deletado com sucesso!')
+            })
+         }
+      }
    }
 }
 </script>

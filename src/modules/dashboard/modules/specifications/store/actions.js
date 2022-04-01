@@ -18,7 +18,7 @@ export default {
          commit('SET_CURRENT_SPECIFICATION', response)
          return response
       } catch (e) {
-         console.log('getSpecification error:', e)
+         console.log('getSpecification error: ', e)
       } finally {
          commit('SET_CURRENT_SPECIFICATION_LOADING', false)
       }
