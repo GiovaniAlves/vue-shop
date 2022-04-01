@@ -7,9 +7,12 @@
 Fotos
 
 ### Organização do Projeto (em Módulos)
-- 1
-- 2
-- 3
+- Auth
+- Dashboard
+  - Products
+  - Sales
+  - Specification
+- Website
 
 ### Compilar para desenvolvimento
 ```
