@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import authRoutes from '@/modules/auth/router'
 import dashboardRoutes from '@/modules/dashboard/router'
 import websiteRoutes from '@/modules/website/router'
+import Page404 from '@/views/Page404'
 import store from '@/store'
 import { AUTH_TOKEN } from '@/helpers'
 
@@ -15,7 +16,11 @@ const routes = [
    },
    ...authRoutes,
    ...dashboardRoutes,
-   ...websiteRoutes
+   ...websiteRoutes,
+   {
+      path: '*',
+      component: Page404
+   }
 ]
 
 const router = new VueRouter({

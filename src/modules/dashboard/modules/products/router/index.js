@@ -8,12 +8,12 @@ export default [
       component: ProductsHome
    },
    {
-      path: 'produtos/cadastrar',
+      path: 'produto/cadastrar',
       name: 'productsCreate',
       component: ProductsForm
    },
    {
-      path: 'produtos/:id',
+      path: 'produto/:id',
       name: 'productsEdit',
       component: ProductsForm
    }

@@ -30,7 +30,8 @@ export default {
       return {
          items: [
             { title: 'Painel', icon: 'bi bi-speedometer2', urlName: 'dashboard', exact: true },
-            { title: 'Produtos', icon: 'bi bi-gift', urlName: 'specifications', exact: true },
+            { title: 'Especificações', icon: 'bi bi-bookmark-plus', urlName: 'specifications', exact: true },
+            { title: 'Produtos', icon: 'bi bi-gift', urlName: 'products', exact: true },
             { title: 'Vendas', icon: 'bi bi-cart', urlName: 'sales', exact: true },
             { title: 'Relatórios', icon: 'bi bi-paperclip', urlName: 'reports', exact: true }
          ]

@@ -60,13 +60,13 @@ export default {
       })
    },
    created () {
-      this.setTitle({ title: 'Especificações' })
+      this.setTitle({ title: 'Especificações do Produto' })
       this.getSpecifications()
    },
    methods: {
       ...mapActions(['getSpecifications', 'setTitle']),
       deleteSpecification (specification) {
-         if (confirm(`Deseja exlcuir a especificação ${specification.name} ?`)) {
+         if (confirm(`Deseja exlcuir a especificação ${specification.name}?`)) {
             store.dispatch('deleteSpecification', specification.id).then(() => {
                this.$toast.success('Deletado com sucesso!')
             })

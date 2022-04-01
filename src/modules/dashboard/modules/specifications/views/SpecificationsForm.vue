@@ -53,9 +53,9 @@ export default {
             name: '',
             description: ''
          },
+         isEditing: false,
          // loading do botão de salvar
-         loading: false,
-         isEditing: false
+         loading: false
       }
    },
    computed: {
@@ -66,7 +66,7 @@ export default {
       })
    },
    created () {
-      this.setTitle({ title: 'Especificação' })
+      this.setTitle({ title: 'Especificação do Produto' })
       if (this.$route.params.id) {
          this.getSpecification(this.$route.params.id)
          this.isEditing = true
@@ -75,7 +75,7 @@ export default {
    watch: {
       currentSpecification: function (newValue) {
          this.localSpecification = {
-            ...JSON.parse(JSON.stringify(newValue))
+            ...newValue
          }
       }
    },
@@ -102,7 +102,7 @@ export default {
 
             this.$toast.success(`${action} com sucesso!`)
          } catch (e) {
-            console.log('specification error: ', e)
+            console.log('save specification error: ', e)
             this.$toast.error('Erro!')
          } finally {
             this.loading = false
