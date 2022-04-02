@@ -12,6 +12,7 @@ Fotos
   - Products
   - Sales
   - Specification
+  - Reports
 - Website
 
 ### Compilar para desenvolvimento
