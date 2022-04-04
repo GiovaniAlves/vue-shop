@@ -30,7 +30,8 @@ import store from '@/store'
 export default {
    name: 'Pagination',
    props: {
-      links: Object
+      links: Object,
+      action: String
    },
    computed: {
       cleanLinks () {
@@ -50,10 +51,10 @@ export default {
                return
             }
 
-            return store.dispatch('getSpecifications', { url: link.url })
+            return store.dispatch(this.action, { url: link.url })
          }
 
-         store.dispatch('getSpecifications', { url: link })
+         store.dispatch(this.action, { url: link })
       }
    }
 }

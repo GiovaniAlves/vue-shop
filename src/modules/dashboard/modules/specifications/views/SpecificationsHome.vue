@@ -40,13 +40,13 @@
                </tbody>
             </table>
          </div>
-         <Pagination :links="specifications.links" />
+         <Pagination :links="specifications.links" action="getSpecifications" />
       </div>
    </div>
 </template>
 
 <script>
-import Pagination from '@/modules/dashboard/components/Pagination'
+import Pagination from '@/components/Pagination'
 import { mapActions, mapState } from 'vuex'
 import store from '@/store'
 

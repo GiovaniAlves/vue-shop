@@ -96,11 +96,11 @@
             <div class="card-footer">
                <div v-if="!isEditing">
                   <button v-if="!loading" class="btn btn-primary btn-md" type="submit">Cadastrar</button>
-                  <button v-else class="btn btn-primary btn-md" type="submit">Cadastrando...</button>
+                  <button v-else disabled class="btn btn-primary btn-md" type="submit">Cadastrando...</button>
                </div>
                <div v-else>
                   <button v-if="!loading" class="btn btn-primary btn-md" type="submit">Editar</button>
-                  <button v-else class="btn btn-primary btn-md" type="submit">Editando...</button>
+                  <button v-else disabled class="btn btn-primary btn-md" type="submit">Editando...</button>
                </div>
             </div>
          </form>
