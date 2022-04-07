@@ -51,7 +51,9 @@
 
             <div class="card bg-light border-light py-2 px-3">
                <div class="ordination-card">
-                  <span> Mostrando 1-8 de {{ products.links.totalProducts }} Produtos</span>
+                  <span>
+                     Mostrando {{ showFisrtQtyProducts }}-{{showLastQtyProducts }} de {{ products.links.totalProducts }} Produtos
+                  </span>
                   <div>
                      <label class="mx-2">Ordenar por: </label>
                      <select v-model="orderBy" class="form-select form-select-sm"
@@ -114,7 +116,8 @@ export default {
          orderBy: {},
          filters: {
             categories: [],
-            // Iniciei o orderBy pq se não passar o filtro no getProdutcs ele não vai para rota product/search buscando os links /product/search?page=5
+            // Iniciei o orderBy pq se não passar o filtro no getProdutcs ele não vai para rota product/search e busca
+            // os links com o search Ex:. /product/search?page=5
             orderBy: { id: 'DESC' }
          }
       }
@@ -123,7 +126,24 @@ export default {
       ...mapState({
          loadingProducts: state => state.product.products.loading,
          products: state => state.product.products
-      })
+      }),
+      showFisrtQtyProducts () {
+         const { links } = this.products
+         if (links.currentPage === 1) {
+            return 1
+         } else {
+            // Fazendo o cálculo da q
+            return (((links.currentPage - 1) * links.productsPerPage) + 1)
+         }
+      },
+      showLastQtyProducts () {
+         const { links } = this.products
+         if (links.currentPage === links.totalPages) {
+            return links.totalProducts
+         } else {
+            return (links.currentPage * links.productsPerPage)
+         }
+      }
    },
    created () {
       this.getProducts({ filters: this.filters })

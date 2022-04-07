@@ -4,8 +4,12 @@ export default {
       loading: false,
       links: {
          data: [],
-         fisrtPage: '',
-         lastPage: ''
+         firstPage: '',
+         lastPage: '',
+         currentPage: 0,
+         totalPages: 0,
+         productsPerPage: 0,
+         totalProducts: 0
       }
    },
    currentProduct: {
