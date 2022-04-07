@@ -40,7 +40,9 @@
                </tbody>
             </table>
          </div>
-         <Pagination :links="specifications.links" action="getSpecifications" />
+         <div class="card-footer">
+            <Pagination :links="specifications.links" action="getSpecifications" />
+         </div>
       </div>
    </div>
 </template>

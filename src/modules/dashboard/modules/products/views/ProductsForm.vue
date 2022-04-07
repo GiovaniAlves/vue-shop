@@ -72,14 +72,14 @@
                         <select v-model="localProduct.category" class="form-select form-select" name="category"
                                 aria-label=".form-select-sm example">
                            <option disabled value="">Escolha uma categoria</option>
-                           <option :class="[{'selected': selectedCategory(localProduct.category)}]" value="Hardware">
-                              Hardware
+                           <option :class="[{'selected': selectedCategory(localProduct.category)}]"
+                                   value="Eletrodoméstico">Eletrodoméstico
                            </option>
                            <option :class="[{'selected': selectedCategory(localProduct.category)}]"
                                    value="Eletroeletrônico">Eletroeletrônico
                            </option>
-                           <option :class="[{'selected': selectedCategory(localProduct.category)}]"
-                                   value="Eletrodoméstico">Eletrodoméstico
+                           <option :class="[{'selected': selectedCategory(localProduct.category)}]" value="Hardware">
+                              Hardware
                            </option>
                         </select>
                      </div>

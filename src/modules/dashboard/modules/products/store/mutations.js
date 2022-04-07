@@ -1,9 +1,12 @@
 export default {
    SET_PRODUCTS (state, products) {
       state.products.data = products.data
-      state.products.links.data = products.links
-      state.products.links.fisrtPage = products.first_page_url
-      state.products.links.lastPage = products.last_page_url
+      state.products.links.data = products.meta.links
+      state.products.links.fisrtPage = products.links.first
+      state.products.links.lastPage = products.links.last
+      state.products.links.currentPage = products.meta.current_page
+      state.products.links.totalPages = products.meta.last_page
+      state.products.links.totalProducts = products.meta.total
    },
 
    SET_PRODUCTS_LOADING (state, status) {

@@ -1,5 +1,5 @@
 <template>
-   <div class="card-footer clearfix">
+   <div class="clearfix">
       <ul class="pagination pagination-md m-0 float-end">
          <li class="page-item">
             <a @click="getForPage($event, links.firstPage, 'fisrt')" class="page-link" href="">&laquo;</a>
@@ -31,7 +31,8 @@ export default {
    name: 'Pagination',
    props: {
       links: Object,
-      action: String
+      action: String,
+      filters: Object
    },
    computed: {
       cleanLinks () {
@@ -50,11 +51,11 @@ export default {
             if (link.active) {
                return
             }
-
-            return store.dispatch(this.action, { url: link.url })
+            // Será adicionando o parâmetro ('page') e outros filtros na url Ex: "http://127.0.0.1:8000/api/v1/auth/product?page=1"
+            return store.dispatch(this.action, { urlPaginated: link.url, filters: this.filters })
          }
 
-         store.dispatch(this.action, { url: link })
+         store.dispatch(this.action, { urlPaginated: link, filters: this.filters })
       }
    }
 }

@@ -11,27 +11,36 @@
                   <p class="text-start fs-5">Categorias</p>
 
                   <div class="form-check">
-                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                     <label class="form-check-label" for="flexCheckDefault">
-                        Default checkbox
+                     <input v-model="categories"
+                            class="form-check-input"
+                            type="checkbox"
+                            value="Eletrodoméstico"
+                            id="Eletrodoméstico"
+                     >
+                     <label class="form-check-label" for="Eletrodoméstico">
+                        Eletrodoméstico
                      </label>
                   </div>
                   <div class="form-check">
-                     <input class="form-check-input" type="checkbox" value="" id="1" checked>
-                     <label class="form-check-label" for="1">
-                        Checked checkbox
+                     <input v-model="categories"
+                            class="form-check-input"
+                            type="checkbox"
+                            value="Eletroeletrônico"
+                            id="Eletroeletrônico"
+                     >
+                     <label class="form-check-label" for="Eletroeletrônico">
+                        Eletroeletrônico
                      </label>
                   </div>
                   <div class="form-check">
-                     <input class="form-check-input" type="checkbox" value="" id="2" checked>
-                     <label class="form-check-label" for="2">
-                        Checked checkbox
-                     </label>
-                  </div>
-                  <div class="form-check">
-                     <input class="form-check-input" type="checkbox" value="" id="3" checked>
-                     <label class="form-check-label" for="3">
-                        Checked checkbox
+                     <input v-model="categories"
+                            class="form-check-input"
+                            type="checkbox"
+                            value="Hardware"
+                            id="Hardware"
+                     >
+                     <label class="form-check-label" for="Hardware">
+                        Hardware
                      </label>
                   </div>
                </div>
@@ -39,12 +48,14 @@
          </div>
 
          <div class="products-container my-3">
+
             <div class="card bg-light border-light py-2 px-3">
                <div class="ordination-card">
-                  <span> Mostrando 1-10 de 200 Produtos</span>
+                  <span> Mostrando 1-8 de {{ products.links.totalProducts }} Produtos</span>
                   <div>
                      <label class="mx-2">Ordenar por: </label>
-                     <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                     <select v-model="orderBy" class="form-select form-select-sm"
+                             aria-label=".form-select-sm example"
                              style="width: 140px">
                         <option selected value="1">Mais Recente</option>
                         <option value="2">Menor Preço</option>
@@ -53,120 +64,32 @@
                   </div>
                </div>
             </div>
-            <div class="card bg-light border-light p-3 mb-5 mt-3">
+
+            <div v-if="loadingProducts" class="d-flex justify-content-center mt-2">Carregando...</div>
+            <div v-else class="card bg-light border-light p-3 mb-5 mt-3">
                <div class="row">
-                  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2">
+                  <div
+                     v-for="product in products.data" :key="product.id"
+                     class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2"
+                  >
                      <div class="card border-light">
-                        <img src="/img/products/product1.jpg" class="card-img-top" alt="...">
+                        <router-link :to="{ name: 'productDetail' }">
+                           <img :src="product.image_url" class="card-img-top" alt="...">
+                        </router-link>
                         <div class="card-body">
-                           <h5 class="card-title fs-6">Apple iMac Pro (27-inch with Retina 5K Display, 3.0GHz 10-core
-                              Intel Xeon W, 1TB SSD)</h5>
-                           <small class="fw-light fst-italic">Computador & Acessórios</small>
-                           <p class="card-text fw-bold">R$ 58,88</p>
-                           <a href="#" class="btn btn-primary fw-lighter"> <i class="bi bi-cart4"></i> Adicionar ao
-                              Carrinho</a>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2">
-                     <div class="card border-light">
-                        <img src="/img/products/product1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                           <h5 class="card-title fs-6">Apple iMac Pro (27-inch with Retina 5K Display, 3.0GHz 10-core
-                              Intel Xeon W, 1TB SSD)</h5>
-                           <small class="fw-light fst-italic">Computador & Acessórios</small>
-                           <p class="card-text fw-bold">R$ 58,88</p>
-                           <a href="#" class="btn btn-primary fw-lighter"> <i class="bi bi-cart4"></i> Adicionar ao
-                              Carrinho</a>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2">
-                     <div class="card border-light">
-                        <img src="/img/products/product1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                           <h5 class="card-title fs-6">Apple iMac Pro (27-inch with Retina 5K Display, 3.0GHz 10-core
-                              Intel Xeon W, 1TB SSD)</h5>
-                           <small class="fw-light fst-italic">Computador & Acessórios</small>
-                           <p class="card-text fw-bold">R$ 58,88</p>
-                           <a href="#" class="btn btn-primary fw-lighter"> <i class="bi bi-cart4"></i> Adicionar ao
-                              Carrinho</a>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2">
-                     <div class="card border-light">
-                        <img src="/img/products/product1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                           <h5 class="card-title fs-6">Apple iMac Pro (27-inch with Retina 5K Display, 3.0GHz 10-core
-                              Intel Xeon W, 1TB SSD)</h5>
-                           <small class="fw-light fst-italic">Computador & Acessórios</small>
-                           <p class="card-text fw-bold">R$ 58,88</p>
-                           <a href="#" class="btn btn-primary fw-lighter"> <i class="bi bi-cart4"></i> Adicionar ao
-                              Carrinho</a>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2">
-                     <div class="card border-light">
-                        <img src="/img/products/product1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                           <h5 class="card-title fs-6">Apple iMac Pro (27-inch with Retina 5K Display, 3.0GHz 10-core
-                              Intel Xeon W, 1TB SSD)</h5>
-                           <small class="fw-light fst-italic">Computador & Acessórios</small>
-                           <p class="card-text fw-bold">R$ 58,88</p>
-                           <a href="#" class="btn btn-primary fw-lighter"> <i class="bi bi-cart4"></i> Adicionar ao
-                              Carrinho</a>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2">
-                     <div class="card border-light">
-                        <img src="/img/products/product1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                           <h5 class="card-title fs-6">Apple iMac Pro (27-inch with Retina 5K Display, 3.0GHz 10-core
-                              Intel Xeon W, 1TB SSD)</h5>
-                           <small class="fw-light fst-italic">Computador & Acessórios</small>
-                           <p class="card-text fw-bold">R$ 58,88</p>
-                           <a href="#" class="btn btn-primary fw-lighter"> <i class="bi bi-cart4"></i> Adicionar ao
-                              Carrinho</a>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2">
-                     <div class="card border-light">
-                        <img src="/img/products/product1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                           <h5 class="card-title fs-6">Apple iMac Pro (27-inch with Retina 5K Display, 3.0GHz 10-core
-                              Intel Xeon W, 1TB SSD)</h5>
-                           <small class="fw-light fst-italic">Computador & Acessórios</small>
-                           <p class="card-text fw-bold">R$ 58,88</p>
+                           <router-link :to="{ name: 'productDetail' }" style="color: #0c0b0b; text-decoration: none">
+                              <h5 class="card-title fs-6">{{ product.name }}</h5>
+                           </router-link>
+                           <small class="fw-light fst-italic">{{ product.category }}</small>
+                           <p class="card-text fw-bold">R$ {{ product.price | format_price_br }}</p>
                            <a href="#" class="btn btn-primary fw-lighter"> <i class="bi bi-cart4"></i> Adicionar ao
                               Carrinho</a>
                         </div>
                      </div>
                   </div>
                </div>
-               <div class="row">
-                  <div class="col-12 mb-2">
-                     <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                           <li class="page-item">
-                              <a class="page-link" href="#" aria-label="Previous">
-                                 <span aria-hidden="true">&laquo;</span>
-                              </a>
-                           </li>
-                           <li class="page-item"><a class="page-link" href="#">1</a></li>
-                           <li class="page-item"><a class="page-link" href="#">2</a></li>
-                           <li class="page-item"><a class="page-link" href="#">3</a></li>
-                           <li class="page-item">
-                              <a class="page-link" href="#" aria-label="Next">
-                                 <span aria-hidden="true">&raquo;</span>
-                              </a>
-                           </li>
-                        </ul>
-                     </nav>
-                  </div>
+               <div class="d-flex justify-content-center">
+                  <Pagination :links="products.links" action="getProducts" :filters="filters"/>
                </div>
             </div>
 
@@ -179,7 +102,60 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+import Pagination from '@/components/Pagination'
+
 export default {
-   name: 'Products'
+   name: 'Products',
+   components: { Pagination },
+   data () {
+      return {
+         categories: [],
+         orderBy: {},
+         filters: {
+            categories: [],
+            // Iniciei o orderBy pq se não passar o filtro no getProdutcs ele não vai para rota product/search buscando os links /product/search?page=5
+            orderBy: { id: 'DESC' }
+         }
+      }
+   },
+   computed: {
+      ...mapState({
+         loadingProducts: state => state.product.products.loading,
+         products: state => state.product.products
+      })
+   },
+   created () {
+      this.getProducts({ filters: this.filters })
+   },
+   watch: {
+      categories: function (newValue) {
+         this.filters.categories = newValue
+         this.getProducts({ filters: this.filters })
+      },
+      orderBy: function (newValue) {
+         switch (newValue) {
+            case '1': {
+               this.filters.orderBy = { id: 'DESC' }
+               break
+            }
+            case '2': {
+               this.filters.orderBy = { price: 'ASC' }
+               break
+            }
+            case '3': {
+               this.filters.orderBy = { price: 'DESC' }
+               break
+            }
+            default: {
+               this.filters.orderBy = { id: 'ASC' }
+            }
+         }
+         this.getProducts({ filters: this.filters })
+      }
+   },
+   methods: {
+      ...mapActions(['getProducts'])
+   }
 }
 </script>

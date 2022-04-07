@@ -1,9 +1,9 @@
 export default {
    SET_SPECIFICATIONS (state, specifications) {
       state.specifications.data = specifications.data
-      state.specifications.links.data = specifications.links
-      state.specifications.links.firstPage = specifications.first_page_url
-      state.specifications.links.lastPage = specifications.last_page_url
+      state.specifications.links.data = specifications.meta.links
+      state.specifications.links.firstPage = specifications.links.first
+      state.specifications.links.lastPage = specifications.links.last
    },
 
    SET_SPECIFICATIONS_LOADING (state, loading) {

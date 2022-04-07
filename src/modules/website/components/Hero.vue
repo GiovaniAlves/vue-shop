@@ -9,7 +9,7 @@
                   </h1>
                   <p>
                      <i>
-                        A Vue Shop é um <b>e-commerce</b> especializado na venda de items de linha gamer, eletrônicos, smart home,
+                        A Vue Shop é um <b>e-commerce</b> especializado na venda de items de linha gamer, eletrônicos, eletrôdomésticos, smart home,
                         smartphones e etc. Fundado em março de 2022, na cidade de Teófilo Otoni - MG, por Giovani Guimarães.
                      </i>
                   </p>

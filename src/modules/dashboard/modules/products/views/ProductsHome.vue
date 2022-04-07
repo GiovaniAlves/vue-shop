@@ -42,7 +42,9 @@
                </tbody>
             </table>
          </div>
-         <Pagination :links="products.links" action="getProducts" />
+         <div class="card-footer">
+            <Pagination :links="products.links" action="getProducts" />
+         </div>
       </div>
    </div>
 </template>

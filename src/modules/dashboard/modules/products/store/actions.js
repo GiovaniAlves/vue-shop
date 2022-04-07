@@ -1,10 +1,16 @@
 import ProductService from '@/modules/dashboard/modules/products/services/product-service'
 
 export default {
-   async getProducts ({ commit }, { url = null } = {}) {
+   async getProducts ({ commit }, { urlPaginated = null, filters = null } = {}) {
       commit('SET_PRODUCTS_LOADING', true)
 
-      const response = await ProductService.all(url)
+      let response = ''
+      if (filters) {
+         response = await ProductService.search(urlPaginated, filters)
+      } else {
+         response = await ProductService.all(urlPaginated)
+      }
+
       commit('SET_PRODUCTS', response.data)
       commit('SET_PRODUCTS_LOADING', false)
       return response

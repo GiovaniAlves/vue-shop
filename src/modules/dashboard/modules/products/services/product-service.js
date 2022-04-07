@@ -1,9 +1,10 @@
 import axiosClient from '@/axios'
+
 const route = '/auth/product'
 
-const all = (url) => {
-   url = url || route
-   return axiosClient.get(`${url}`)
+const all = (urlPaginated) => {
+   urlPaginated = urlPaginated || route
+   return axiosClient.get(`${urlPaginated}`)
 }
 
 const get = (id) => {
@@ -18,6 +19,14 @@ const save = (product) => {
    }
 }
 
+const search = (urlPaginated, filters) => {
+   if (urlPaginated) {
+      return axiosClient.post(`${urlPaginated}`, filters)
+   } else {
+      return axiosClient.post(`${route}/search`, filters)
+   }
+}
+
 const destroy = (id) => {
    return axiosClient.delete(`${route}/${id}`)
 }
@@ -26,5 +35,6 @@ export default {
    all,
    get,
    destroy,
-   save
+   save,
+   search
 }
