@@ -1,26 +1,32 @@
 import axiosClient from '@/axios'
 
-const route = '/auth/product'
+const routeAuthenticated = '/auth/product'
+const route = '/product'
 
 const index = (urlPaginated) => {
-   urlPaginated = urlPaginated || route
+   urlPaginated = urlPaginated || routeAuthenticated
    return axiosClient.get(`${urlPaginated}`)
 }
 
-const get = (id) => {
-   return axiosClient.get(`${route}/${id}`)
+const get = (idOrUrl, authenticated) => {
+   if (authenticated) {
+      return axiosClient.get(`${routeAuthenticated}/${idOrUrl}`)
+   } else {
+      return axiosClient.get(`${route}/${idOrUrl}`)
+   }
 }
 
 const save = (product) => {
    if (product.id) {
-      return axiosClient.put(`${route}/${product.id}`, product)
+      return axiosClient.put(`${routeAuthenticated}/${product.id}`, product)
    } else {
-      return axiosClient.post(`${route}`, product)
+      return axiosClient.post(`${routeAuthenticated}`, product)
    }
 }
 
 const search = (urlPaginated, filters) => {
    if (urlPaginated) {
+      // Rota da paginação já vem autenticada
       return axiosClient.post(`${urlPaginated}`, filters)
    } else {
       return axiosClient.post(`${route}/search`, filters)
@@ -28,7 +34,7 @@ const search = (urlPaginated, filters) => {
 }
 
 const destroy = (id) => {
-   return axiosClient.delete(`${route}/${id}`)
+   return axiosClient.delete(`${routeAuthenticated}/${id}`)
 }
 
 export default {

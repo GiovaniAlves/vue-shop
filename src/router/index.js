@@ -19,6 +19,7 @@ const routes = [
    ...websiteRoutes,
    {
       path: '*',
+      name: 'page404',
       component: Page404
    }
 ]

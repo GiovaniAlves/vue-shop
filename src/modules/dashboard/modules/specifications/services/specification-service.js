@@ -1,6 +1,6 @@
 import axiosClient from '@/axios'
 
-const route = '/auth/specification'
+const routeAuthenticated = '/auth/specification'
 
 // Rota que seta todas as especificações no select da página do produto
 const all = () => {
@@ -8,24 +8,24 @@ const all = () => {
 }
 
 const index = (urlPaginated) => {
-   urlPaginated = urlPaginated || route
+   urlPaginated = urlPaginated || routeAuthenticated
    return axiosClient.get(`${urlPaginated}`)
 }
 
 const get = (id) => {
-   return axiosClient.get(`${route}/${id}`)
+   return axiosClient.get(`${routeAuthenticated}/${id}`)
 }
 
 const save = (specification) => {
    if (specification.id) {
-      return axiosClient.put(`${route}/${specification.id}`, specification)
+      return axiosClient.put(`${routeAuthenticated}/${specification.id}`, specification)
    } else {
-      return axiosClient.post(`${route}`, specification)
+      return axiosClient.post(`${routeAuthenticated}`, specification)
    }
 }
 
 const destroy = (id) => {
-   return axiosClient.delete(`${route}/${id}`)
+   return axiosClient.delete(`${routeAuthenticated}/${id}`)
 }
 
 export default {

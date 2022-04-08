@@ -1,3 +1,5 @@
+import Page404 from '@/views/Page404'
+
 const Cart = () => import('./../views/Cart.vue')
 const Checkout = () => import('./../views/Checkout.vue')
 const Home = () => import('./../views/Home.vue')
@@ -13,7 +15,8 @@ export default [
          { path: '/pagamento', name: 'checkout', meta: { requiresAuth: true }, component: Checkout },
          { path: '/home', name: 'home', component: Home },
          { path: '/catalogo-produtos', name: 'productsCatalog', component: Products },
-         { path: '/detalhes-produto', name: 'productDetail', component: ProductDetail }
+         { path: '/detalhes-produto/:url', name: 'productDetail', component: ProductDetail },
+         { path: '*', component: Page404 }
       ]
    }
 ]

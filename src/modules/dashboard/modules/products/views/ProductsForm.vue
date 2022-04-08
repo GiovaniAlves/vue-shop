@@ -36,7 +36,8 @@
                   <div class="col-12 col-md-2 col-lg-2">
                      <div class="mb-3">
                         <label class="form-label">Preço</label>
-                        <Money v-model="localProduct.price" type="text" class="form-control" name="price" v-bind="money"></Money>
+                        <Money v-model="localProduct.price" type="text" class="form-control" name="price"
+                               v-bind="money"></Money>
                      </div>
                   </div>
                   <div class="col-12 col-md-2 col-lg-2">
@@ -123,7 +124,10 @@ import { mapActions, mapState } from 'vuex'
 
 export default {
    name: 'ProductsForm',
-   components: { Multiselect, Money },
+   components: {
+      Multiselect,
+      Money
+   },
    data () {
       return {
          localProduct: {
@@ -166,7 +170,7 @@ export default {
       this.setTitle({ title: 'Produto' })
       this.getSpecifications({ allSpecifications: true })
       if (this.$route.params.id) {
-         this.getProduct(this.$route.params.id)
+         this.getProduct({ idOrUrl: this.$route.params.id })
          this.isEditing = true
       }
    },

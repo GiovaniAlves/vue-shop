@@ -1,4 +1,6 @@
 import SpecificationService from '@/modules/dashboard/modules/specifications/services/specification-service'
+import router from '@/router'
+import Vue from 'vue'
 
 export default {
    async getSpecifications ({ commit }, { urlPaginated = null, allSpecifications = false } = {}) {
@@ -28,6 +30,8 @@ export default {
          return response
       } catch (e) {
          console.log('getSpecification error: ', e)
+         router.push({ name: 'specifications' })
+         Vue.$toast.error('Especificação não encontrada!')
       } finally {
          commit('SET_CURRENT_SPECIFICATION_LOADING', false)
       }

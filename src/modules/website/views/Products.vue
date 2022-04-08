@@ -75,11 +75,11 @@
                      class="col-12 col-md-6 col-lg-4 col-xl-3 mb-2"
                   >
                      <div class="card border-light">
-                        <router-link :to="{ name: 'productDetail' }">
+                        <router-link :to="{ name: 'productDetail', params: { url: product.url } }">
                            <img :src="product.image_url" class="card-img-top" alt="...">
                         </router-link>
                         <div class="card-body">
-                           <router-link :to="{ name: 'productDetail' }" style="color: #0c0b0b; text-decoration: none">
+                           <router-link :to="{ name: 'productDetail', params: { url: product.url } }" style="color: #0c0b0b; text-decoration: none">
                               <h5 class="card-title fs-6">{{ product.name }}</h5>
                            </router-link>
                            <small class="fw-light fst-italic">{{ product.category }}</small>
@@ -132,7 +132,7 @@ export default {
          if (links.currentPage === 1) {
             return 1
          } else {
-            // Fazendo o cálculo da q
+            // Fazendo o cálculo da label que vai mostrar o intervalo da quantidade de produtos que está sendo exibida
             return (((links.currentPage - 1) * links.productsPerPage) + 1)
          }
       },
