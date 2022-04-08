@@ -8,7 +8,7 @@ export default {
       if (filters) {
          response = await ProductService.search(urlPaginated, filters)
       } else {
-         response = await ProductService.all(urlPaginated)
+         response = await ProductService.index(urlPaginated)
       }
 
       commit('SET_PRODUCTS', response.data)

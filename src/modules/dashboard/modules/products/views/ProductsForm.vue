@@ -66,6 +66,14 @@
                         </div>
                      </div>
                   </div>
+                  <div class="col-12">
+                     <div class="mb-3">
+                        <label class="form-label">Descrição</label>
+                        <div class="input-group">
+                           <textarea v-model="localProduct.description" rows="4" class="form-control"></textarea>
+                        </div>
+                     </div>
+                  </div>
                   <div class="col-12 col-lg-4">
                      <div class="mb-3">
                         <label class="form-label">Categoria</label>
@@ -120,6 +128,7 @@ export default {
       return {
          localProduct: {
             name: '',
+            description: '',
             url: '',
             price: 0,
             quantity: null,
@@ -155,7 +164,7 @@ export default {
    },
    created () {
       this.setTitle({ title: 'Produto' })
-      this.getSpecifications()
+      this.getSpecifications({ allSpecifications: true })
       if (this.$route.params.id) {
          this.getProduct(this.$route.params.id)
          this.isEditing = true

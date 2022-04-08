@@ -1,11 +1,20 @@
 import SpecificationService from '@/modules/dashboard/modules/specifications/services/specification-service'
 
 export default {
-   async getSpecifications ({ commit }, { url = null } = {}) {
+   async getSpecifications ({ commit }, { urlPaginated = null, allSpecifications = false } = {}) {
       commit('SET_SPECIFICATIONS_LOADING', true)
 
-      const response = await SpecificationService.all(url)
-      commit('SET_SPECIFICATIONS', response.data)
+      let response = ''
+
+      // Setando todas as especificações no select da página do produto se allSpecifications for true
+      if (allSpecifications) {
+         response = await SpecificationService.all()
+         commit('SET_ALL_SPECIFICATIONS', response.data)
+      } else {
+         response = await SpecificationService.index(urlPaginated)
+         commit('SET_SPECIFICATIONS', response.data)
+      }
+
       commit('SET_SPECIFICATIONS_LOADING', false)
       return response
    },

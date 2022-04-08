@@ -1,9 +1,15 @@
 import axiosClient from '@/axios'
+
 const route = '/auth/specification'
 
-const all = (url) => {
-   url = url || route
-   return axiosClient.get(`${url}`)
+// Rota que seta todas as especificações no select da página do produto
+const all = () => {
+   return axiosClient.get('/auth/allSpecifications')
+}
+
+const index = (urlPaginated) => {
+   urlPaginated = urlPaginated || route
+   return axiosClient.get(`${urlPaginated}`)
 }
 
 const get = (id) => {
@@ -24,6 +30,7 @@ const destroy = (id) => {
 
 export default {
    all,
+   index,
    get,
    save,
    destroy

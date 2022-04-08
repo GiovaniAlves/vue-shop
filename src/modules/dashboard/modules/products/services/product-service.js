@@ -2,7 +2,7 @@ import axiosClient from '@/axios'
 
 const route = '/auth/product'
 
-const all = (urlPaginated) => {
+const index = (urlPaginated) => {
    urlPaginated = urlPaginated || route
    return axiosClient.get(`${urlPaginated}`)
 }
@@ -32,7 +32,7 @@ const destroy = (id) => {
 }
 
 export default {
-   all,
+   index,
    get,
    destroy,
    save,
