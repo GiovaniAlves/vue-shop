@@ -84,8 +84,13 @@
                            </router-link>
                            <small class="fw-light fst-italic">{{ product.category }}</small>
                            <p class="card-text fw-bold">R$ {{ product.price | format_price_br }}</p>
-                           <a href="#" class="btn btn-primary fw-lighter"> <i class="bi bi-cart4"></i> Adicionar ao
-                              Carrinho</a>
+                           <a
+                              @click.prevent="addProductCart(product)"
+                              href="#"
+                              :class="['btn', 'btn-primary', 'fw-lighter', {'disabled': productInCart(product)}]"
+                           >
+                              <i class="bi bi-cart4"></i> Adicionar ao Carrinho
+                           </a>
                         </div>
                      </div>
                   </div>
@@ -104,7 +109,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 import Pagination from '@/components/Pagination'
 
 export default {
@@ -117,7 +122,7 @@ export default {
          filters: {
             categories: [],
             // Iniciei o orderBy pq se não passar o filtro no getProdutcs ele não vai para rota product/search e busca
-            // os links com o search Ex:. /product/search?page=5
+            // os links já com o *('search')* Ex:. /product/search?page=5
             orderBy: { id: 'DESC' }
          }
       }
@@ -125,7 +130,8 @@ export default {
    computed: {
       ...mapState({
          loadingProducts: state => state.product.products.loading,
-         products: state => state.product.products
+         products: state => state.product.products,
+         cartProducts: state => state.cart.cartProducts
       }),
       showFisrtQtyProducts () {
          const { links } = this.products
@@ -175,7 +181,21 @@ export default {
       }
    },
    methods: {
-      ...mapActions(['getProducts'])
+      ...mapActions(['getProducts']),
+      ...mapMutations({
+         addProductCart: 'ADD_PRODUCT_CART'
+      }),
+      productInCart (product) {
+         let inCart = false
+
+         this.cartProducts.map((cartProd) => {
+            if (cartProd.id === product.id) {
+               inCart = true
+            }
+         })
+
+         return inCart
+      }
    }
 }
 </script>

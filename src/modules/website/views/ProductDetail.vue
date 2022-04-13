@@ -37,8 +37,11 @@
                      <small class="fw-light fst-italic">Produto:
                         <strong class="text-success">Disponível</strong>
                      </small>
-                     <button class="d-block mt-1 btn btn-primary btn-sm"><i class="bi bi-cart-plus-fill"></i> Adicionar ao
-                        Carrinho
+                     <button
+                        @click.prevent="addProductCart(currentProduct)"
+                        :class="['d-block mt-1 btn btn-primary btn-sm', {'disabled': productInCart(currentProduct)}]"
+                     >
+                        <i class="bi bi-cart-plus-fill"></i> Adicionar ao Carrinho
                      </button>
                   </div>
                </div>
@@ -88,13 +91,14 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 
 export default {
    name: 'ProductDetail',
    computed: {
       ...mapState({
          loadingProduct: state => state.product.currentProduct.loading,
+         cartProducts: state => state.cart.cartProducts,
          currentProduct: state => state.product.currentProduct.data
       })
    },
@@ -102,7 +106,21 @@ export default {
       this.getProduct({ idOrUrl: this.$route.params.url, authenticated: false })
    },
    methods: {
-      ...mapActions(['getProduct'])
+      ...mapActions(['getProduct']),
+      ...mapMutations({
+         addProductCart: 'ADD_PRODUCT_CART'
+      }),
+      productInCart (product) {
+         let inCart = false
+
+         this.cartProducts.map((cartProd) => {
+            if (cartProd.id === product.id) {
+               inCart = true
+            }
+         })
+
+         return inCart
+      }
    }
 }
 </script>

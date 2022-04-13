@@ -20,7 +20,7 @@
             <div class="d-flex d-none d-sm-none d-md-none d-lg-block">
                <div class="container-fluid">
                   <router-link :to="{ name: 'cart' }" class="navbar-brand text-success d-inline-block align-text-top">
-                     <i class="bi bi-cart3"></i><span class="fs-6"> (1) </span>
+                     <i class="bi bi-cart3"></i><span class="fs-6">  ({{ cartProducts.length }}) </span>
                   </router-link>
                </div>
             </div>
@@ -33,7 +33,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-   name: 'Navbar'
+   name: 'Navbar',
+   computed: {
+      ...mapState({
+         cartProducts: state => state.cart.cartProducts
+      })
+   }
 }
 </script>
