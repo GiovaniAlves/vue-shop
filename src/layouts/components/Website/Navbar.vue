@@ -24,9 +24,21 @@
                   </router-link>
                </div>
             </div>
-            <button class="btn btn-outline-success" type="submit">
+            <button v-if="!user.token" class="btn btn-outline-success" type="submit">
                <router-link :to="{ name: 'login' }" class="text-decoration-none text-black">Login</router-link>
             </button>
+            <ul v-else class="navbar-nav">
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                     data-bs-toggle="dropdown" aria-expanded="false">
+                     <i class="bi bi-person"></i> Olá, {{ user.data.name }}
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                     <li><a class="dropdown-item" href="#">Meus Pedidos</a></li>
+                  </ul>
+               </li>
+            </ul>
+
          </div>
       </div>
    </nav>
@@ -39,7 +51,8 @@ export default {
    name: 'Navbar',
    computed: {
       ...mapState({
-         cartProducts: state => state.cart.cartProducts
+         cartProducts: state => state.cart.cartProducts,
+         user: state => state.auth.user
       })
    }
 }

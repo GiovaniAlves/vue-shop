@@ -1,9 +1,9 @@
 <template>
    <div>
       <div class="container my-5">
-         <div class="row pt-3 pb-5 container-checkout">
+         <div class="pt-3 pb-5 container-checkout">
 
-            <div class="col-12 col-lg-8 mb-3 container-checkout-address">
+            <div class="address">
                <div class="card">
                   <h6 class="card-header">Endereço de Entrega</h6>
                   <div class="card-body">
@@ -26,8 +26,7 @@
                   </div>
                </div>
             </div>
-
-            <div class="col-12 col-lg-4 mb-3 container-checkout-sumary-order">
+            <div class="sumary-order">
                <div class="card text-center">
                   <div class="card-header d-flex flex-row justify-content-between" style="height: 42px">
                      <h6>Pedido(s)</h6>
@@ -38,45 +37,27 @@
                      </router-link>
                   </div>
                   <div class="card-body">
-                     <div>
+                     <div v-for="(item, index) in cartProducts" :key="item.id">
                         <div class="d-flex flex-row justify-content-between">
-                           <p class="card-title fw-lighter" style="font-size: 13px"><strong>Apple MacBook Pro 15" x
-                              1</strong></p>
-                           <p class="card-title fw-lighter" style="font-size: 13px"><strong>R$ 5432,12</strong></p>
+                           <p class="card-title fw-lighter" style="font-size: 13px">
+                              <strong>{{ item.product.name }}</strong> x {{ qtyProduct(item) }}
+                           </p>
+                           <p class="card-title fw-lighter" style="font-size: 13px"><strong>R$ {{ item.product.price * qtyProduct(item) | format_price_br }}</strong></p>
                         </div>
-                        <small class="fw-lighter d-flex flex-row" style="font-size: 10px">Z0V20008N: 2.9GHz 6-core
-                           8th-Gen Intel Core i9, 32GB RAM</small>
-                     </div>
-                     <hr>
-                     <div>
-                        <div class="d-flex flex-row justify-content-between">
-                           <p class="card-title fw-lighter" style="font-size: 13px"><strong>Apple MacBook Pro 15" x
-                              1</strong></p>
-                           <p class="card-title fw-lighter" style="font-size: 13px"><strong>R$ 5432,12</strong></p>
-                        </div>
-                        <small class="fw-lighter d-flex flex-row" style="font-size: 10px">Z0V20008N: 2.9GHz 6-core
-                           8th-Gen Intel Core i9, 32GB RAM</small>
-                     </div>
-                     <hr>
-                     <div>
-                        <div class="d-flex flex-row justify-content-between">
-                           <p class="card-title fw-lighter" style="font-size: 13px"><strong>Apple MacBook Pro 15" x
-                              1</strong></p>
-                           <p class="card-title fw-lighter" style="font-size: 13px"><strong>R$ 5432,12</strong></p>
-                        </div>
-                        <small class="fw-lighter d-flex flex-row" style="font-size: 10px">Z0V20008N: 2.9GHz 6-core
-                           8th-Gen Intel Core i9, 32GB RAM</small>
+                        <small class="fw-lighter d-flex flex-row" style="font-size: 10px">
+                           {{ item.product.specifications[0].description }}
+                        </small>
+                        <hr v-if="!isLastItem(cartProducts.length, index)">
                      </div>
                   </div>
                   <div class="d-flex flex-row justify-content-between align-items-center card-footer text-muted"
                        style="height: 42px">
                      <p class="fw-bold ">Total</p>
-                     <span class="fs-6 fw-lighter">R$ 1.332,75</span>
+                     <span class="fs-6 fw-lighter">R$ {{ totalCart(cartProducts) | format_price_br }}</span>
                   </div>
                </div>
             </div>
-
-            <div class="col-12 col-lg-8 mb-3 container-checkout-payment">
+            <div class="payment">
                <div class="card">
                   <h6 class="card-header">Pagamento</h6>
                   <div class="card-body">
@@ -105,7 +86,7 @@
                            </div>
                         </div>
                         <div class="col-12 col-md-5">
-                           <img src="/img/card.png">
+                           <img src="/img/card.png" width="230">
                         </div>
                      </div>
                      <hr>
@@ -137,7 +118,7 @@
                         </div>
                         <hr class="horizontal-line my-2">
                         <div class="col-12 col-lg-5">
-                           <p class="fw-lighter fs-4">Total: <span class="text-primary">R$ 5632,23</span></p>
+                           <p class="fw-lighter fs-4">Total: <span class="text-primary">R$ {{ totalCart(cartProducts) | format_price_br }}</span></p>
                            <button class="btn btn-success btn-sm fw-bold">Confirmar & Pagar</button>
                         </div>
                      </div>
@@ -151,7 +132,20 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import isLastItemMixin from '@/modules/website/mixins/is-last-item'
+import cartUtilitiesMixin from '@/modules/website/mixins/cart-utilities'
+
 export default {
-   name: 'Checkout'
+   name: 'Checkout',
+   computed: {
+      ...mapState({
+         cartProducts: state => state.cart.cartProducts
+      })
+   },
+   mixins: [
+      isLastItemMixin,
+      cartUtilitiesMixin
+   ]
 }
 </script>

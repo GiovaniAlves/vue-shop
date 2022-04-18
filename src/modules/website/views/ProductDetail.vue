@@ -34,8 +34,8 @@
                      <small class="fw-light fst-italic text-primary">{{ currentProduct.category }}</small>
                      <small class="d-block text-secondary fst-italic pt-1">{{ currentProduct.short_description }}</small>
                      <p class="card-text fw-bold fst-italic fs-4">R$ {{ currentProduct.price | format_price_br }}</p>
-                     <small class="fw-light fst-italic">Produto:
-                        <strong class="text-success">Disponível</strong>
+                     <small class="fw-light fst-italic">Quantidade:
+                        <strong class="text-success">{{ currentProduct.quantity }} unidades disponíveis</strong>
                      </small>
                      <button
                         @click.prevent="addProductCart(currentProduct)"
@@ -52,22 +52,27 @@
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                            <button class="nav-link active text-secondary" id="nav-home-tab" data-bs-toggle="tab"
                                    data-bs-target="#nav-home"
-                                   type="button" role="tab" aria-controls="nav-home" aria-selected="true">Descrição
+                                   type="button" role="tab" aria-controls="nav-home" aria-selected="true"
+                           >
+                              Descrição
                            </button>
                            <button class="nav-link text-secondary" id="nav-profile-tab" data-bs-toggle="tab"
                                    data-bs-target="#nav-profile"
-                                   type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+                                   type="button" role="tab" aria-controls="nav-profile" aria-selected="false"
+                           >
                               Especificações
                            </button>
                         </div>
                      </nav>
                      <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active p-2 fw-lighter" id="nav-home" role="tabpanel"
-                             aria-labelledby="nav-home-tab">
+                             aria-labelledby="nav-home-tab"
+                        >
                            {{ currentProduct.description }}
                         </div>
                         <div class="tab-pane fade p-2 fw-lighter" id="nav-profile" role="tabpanel"
-                             aria-labelledby="nav-profile-tab">
+                             aria-labelledby="nav-profile-tab"
+                        >
                            <table class="table">
                               <tbody>
                               <tr v-for="spec in currentProduct.specifications" :key="spec.id">

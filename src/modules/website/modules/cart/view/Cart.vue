@@ -2,7 +2,7 @@
    <!-- CONTAINER START -->
    <div class="container container-cart my-5">
       <div class="pt-3 pb-5">
-         <div class="card text-center">
+         <div v-if="cartProducts.length > 0" class="card text-center">
             <div class="card-header fw-bold text-start">
                Carrinho
             </div>
@@ -14,24 +14,35 @@
                      <h5 class="fs-5 fw-lighter" style="font-size: 8px">
                         {{ item.product.name }}
                      </h5>
-                     <div class="d-flex flex-row align-items-start justify-content-start">
-                        <h6><strong>R$ {{ item.product.price | format_price_br }} <label class="text-muted mx-1">
-                           x </label></strong></h6>
-                        <div class="quantity ml-4">
-                           <input
-                              @click="incrementQty(item.product)"
-                              type="button"
-                              value="+"
-                              class="plus">
-                           <input type="number" step="1" max="99" min="1" :value="item.qty" title="Qty" class="qty"
-                                  size="4">
-                           <input
-                              @click="decrementQty(item.product)"
-                              type="button"
-                              value="-"
-                              class="minus">
+
+                     <div class="d-block">
+                        <div class="d-flex flex-row align-items-start justify-content-start">
+                           <h6>
+                              <strong>
+                                 R$ {{ item.product.price | format_price_br }}<label class="text-muted mx-1"> x </label>
+                              </strong>
+                           </h6>
+                           <div class="quantity ml-4">
+                              <input
+                                 @click="incrementQty(item.product)"
+                                 type="button"
+                                 value="+"
+                                 class="plus">
+                              <input type="number" readonly step="1" max="99" min="1" :value="item.qty" title="Qty" class="qty"
+                                     size="4">
+                              <input
+                                 @click="decrementQty(item.product)"
+                                 type="button"
+                                 value="-"
+                                 class="minus">
+                           </div>
                         </div>
+                        <small v-if="aboveAvailableQuantity(item)" class="fw-lighter text-danger"
+                               style="font-size: 12px">
+                           Existem apenas {{ item.product.quantity }} unidades disponíveis desse produto
+                        </small>
                      </div>
+
                      <div class="col-2 col-sm-2 col-md-2 text-right">
                         <button
                            @click="removeProductCart(item.product)"
@@ -42,7 +53,7 @@
                         </button>
                      </div>
                   </div>
-                  <hr v-if="!isLastItem(index)">
+                  <hr v-if="!isLastItem(cartProducts.length, index)">
                </div>
 
             </div>
@@ -51,7 +62,7 @@
 
                <p class="fw-bold fw-lighter">Total</p>
                <span class="mx-3 mx-md-5">{{ qtyCartProducts }} (Items)</span>
-               <span>R$ {{ totalCart | format_price_br }}</span>
+               <span>R$ {{ totalCart(cartProducts) | format_price_br }}</span>
 
             </div>
 
@@ -63,6 +74,7 @@
 
             </div>
          </div>
+         <div v-else class="d-flex pt-3 justify-content-center fs-5 fw-light">Carrinho vazio</div>
       </div>
    </div>
    <!-- CONTAINER END -->
@@ -70,6 +82,8 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex'
+import isLastItemMixin from '@/modules/website/mixins/is-last-item'
+import cartUtilitiesMixin from '@/modules/website/mixins/cart-utilities'
 
 export default {
    name: 'Cart',
@@ -77,27 +91,22 @@ export default {
       ...mapState({
          cartProducts: state => state.cart.cartProducts
       }),
-      totalCart () {
-         let total = 0
-
-         this.cartProducts.map((prodCart) => {
-            total += prodCart.qty * prodCart.product.price
-         })
-
-         return total
-      },
       qtyCartProducts () {
          return this.cartProducts.length
       }
    },
+   mixins: [
+      isLastItemMixin,
+      cartUtilitiesMixin
+   ],
    methods: {
       ...mapMutations({
          decrementQty: 'DECREMENT_QTY_PRODUCT_CART',
          incrementQty: 'INCREMENT_QTY_PRODUCT_CART',
          removeProductCart: 'REMOVE_PRODUCT_CART'
       }),
-      isLastItem (index) {
-         return this.cartProducts.length === index + 1
+      aboveAvailableQuantity (cartProduct) {
+         return cartProduct.qty > cartProduct.product.quantity
       }
    }
 }

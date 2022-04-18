@@ -11,13 +11,6 @@ const errorHandler = (errorHandler, vm, info) => {
          query: { redirect: vm.$route.path }
       })
    }
-
-   /* const notFoundErrors = ['Cannot read properties of undefined (reading \'toLocaleString\')']
-   if (notFoundErrors.some(notFoundError => errorHandler.message.includes(notFoundError))) {
-      vm.$router.push({
-         name: 'page404'
-      })
-   } */
 }
 
 export {

@@ -1,7 +1,7 @@
 import Page404 from '@/views/Page404'
 import cartRoute from './../modules/cart/router'
 
-const Checkout = () => import('../views/Checkout.vue')
+const Checkout = () => import('../modules/checkout/view/Checkout.vue')
 const Home = () => import('./../views/Home.vue')
 const Products = () => import('../views/Products.vue')
 const ProductDetail = () => import('../views/ProductDetail.vue')

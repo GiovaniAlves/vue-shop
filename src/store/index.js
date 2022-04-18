@@ -25,6 +25,11 @@ const actions = {
    }
 }
 
+/* const vuexLocal = new VuexPersistence({
+   storage: window.localStorage,
+   reducer: (state) => ({ cart: state.cart }) // only save navigation module
+}) */
+
 export default new Vuex.Store({
    state,
    mutations,
@@ -35,7 +40,12 @@ export default new Vuex.Store({
       specification,
       product
    }
-   /* plugins: [
+   /* -- SIMPLE USAGE --
+   plugins: [
+      vuexLocal.plugin
+   ] */
+   /* -- USAGE WITH MODULES --
+   plugins: [
       new VuexPersistence({
          storage: window.localStorage
       }).plugin

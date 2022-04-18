@@ -31,9 +31,12 @@
                            <i class="fas fa-user me-2"></i>{{ user.name }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                           <li><a class="dropdown-item" href="#">Notificações <span
-                              class="badge bg-primary">100</span></a></li>
-                           <li><span class="dropdown-item cursor-pointer" @click="logout">Sair</span></li>
+                           <li>
+                              <a class="dropdown-item" href="#">Notificações <span class="badge bg-primary">100</span></a>
+                           </li>
+                           <li>
+                              <span class="dropdown-item cursor-pointer" @click="logout">Sair</span>
+                           </li>
                         </ul>
                      </li>
                   </ul>

@@ -58,6 +58,7 @@ export default {
 
          try {
             await this.login(this.user)
+            // TODO se o usuário for adm redireciono para o painel
             this.$router.push(this.$route.query.redirect || { name: 'dashboard' })
          } catch (error) {
             const { status } = error.response

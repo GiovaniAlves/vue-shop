@@ -1,4 +1,4 @@
-const Cart = () => import('./../views/Cart.vue')
+const Cart = () => import('../view/Cart.vue')
 
 export default [
    {
