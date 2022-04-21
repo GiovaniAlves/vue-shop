@@ -18,6 +18,7 @@
                         <div class="card-body">
                            <p class="card-title fw-lighter" style="font-size: 13px">Rua: Antônio Cezar, 7851</p>
                            <p class="card-title fw-lighter" style="font-size: 13px">Centro - Belo Horizonte</p>
+                           <p class="card-title fw-lighter" style="font-size: 13px">CEP: 39800-000</p>
                            <p class="card-title fw-lighter" style="font-size: 13px">Minas Gerais</p>
                            <p class="card-title fw-lighter" style="font-size: 13px">(33) 99999-9999</p>
                         </div>
@@ -42,7 +43,8 @@
                            <p class="card-title fw-lighter" style="font-size: 13px">
                               <strong>{{ item.product.name }}</strong> x {{ qtyProduct(item) }}
                            </p>
-                           <p class="card-title fw-lighter" style="font-size: 13px"><strong>R$ {{ item.product.price * qtyProduct(item) | format_price_br }}</strong></p>
+                           <p class="card-title fw-lighter" style="font-size: 13px"><strong>R$
+                              {{ item.product.price * qtyProduct(item) | format_price_br }}</strong></p>
                         </div>
                         <small class="fw-lighter d-flex flex-row" style="font-size: 10px">
                            {{ item.product.specifications[0].description }}
@@ -68,19 +70,50 @@
                               <div class="col-12">
                                  <label>Número do Cartão</label>
                                  <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="XXXX XXXX XXXX XXXX">
+                                    <TheMask
+                                       v-model.trim="$v.order.card_number.$model"
+                                       mask="####-####-####-####"
+                                       :class="['form-control', {'is-invalid': $v.order.card_number.$invalid && $v.order.card_number.$dirty }]"
+                                       type="text"
+                                       placeholder="XXXX-XXXX-XXXX-XXXX"
+                                       id="validationCardNumber"
+                                    ></TheMask>
+                                    <div id="validationCardNumber" class="invalid-feedback">
+                                       Informe o número do cartão.
+                                    </div>
                                  </div>
                               </div>
                               <div class="col-12 col-md-6">
                                  <label>Data de Expiração</label>
                                  <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="MM/AA">
+                                    <TheMask
+                                       v-model.trim="$v.order.exp_date.$model"
+                                       mask="##/##"
+                                       :class="['form-control', {'is-invalid': $v.order.exp_date.$invalid && $v.order.exp_date.$dirty }]"
+                                       type="text"
+                                       :masked="true"
+                                       placeholder="MM/AA"
+                                       id="validationExpDate"
+                                    ></TheMask>
+                                    <div id="validationExpDate" class="invalid-feedback">
+                                       Informe a data de experição.
+                                    </div>
                                  </div>
                               </div>
                               <div class="col-12 col-md-6">
                                  <label>CVV</label>
                                  <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="XXX">
+                                    <TheMask
+                                       v-model.trim="$v.order.cvc.$model"
+                                       mask="###"
+                                       :class="['form-control', {'is-invalid': $v.order.cvc.$invalid && $v.order.cvc.$dirty }]"
+                                       type="text"
+                                       placeholder="XXX"
+                                       id="validationCVC"
+                                    ></TheMask>
+                                    <div id="validationCVC" class="invalid-feedback">
+                                       Informe o CVC.
+                                    </div>
                                  </div>
                               </div>
                            </div>
@@ -118,8 +151,23 @@
                         </div>
                         <hr class="horizontal-line my-2">
                         <div class="col-12 col-lg-5">
-                           <p class="fw-lighter fs-4">Total: <span class="text-primary">R$ {{ totalCart(cartProducts) | format_price_br }}</span></p>
-                           <button class="btn btn-success btn-sm fw-bold">Confirmar & Pagar</button>
+                           <p class="fw-lighter fs-4">Total: <span
+                              class="text-primary">R$ {{ totalCart(cartProducts) | format_price_br }}</span></p>
+                           <button
+                              v-if="!loading"
+                              @click.prevent="onSubmint"
+                              class="btn btn-success btn-sm fw-bold"
+                              :disabled="$v.$invalid"
+                           >
+                              Confirmar & Pagar
+                           </button>
+                           <button
+                              v-else
+                              @click.prevent="onSubmint"
+                              class="btn btn-success btn-sm fw-bold disabled"
+                           >
+                              Confirmando...
+                           </button>
                         </div>
                      </div>
                   </div>
@@ -135,17 +183,83 @@
 import { mapState } from 'vuex'
 import isLastItemMixin from '@/modules/website/mixins/is-last-item'
 import cartUtilitiesMixin from '@/modules/website/mixins/cart-utilities'
+import { required } from 'vuelidate/lib/validators'
+import { TheMask } from 'vue-the-mask'
+import CheckoutService from '@/modules/website/modules/checkout/service/checkout-service'
 
 export default {
    name: 'Checkout',
+   components: { TheMask },
+   data () {
+      return {
+         order: {
+            total: 0,
+            card_number: undefined,
+            exp_date: '',
+            cvc: undefined,
+            products: []
+         },
+         loading: false
+      }
+   },
+   validations: {
+      order: {
+         card_number: {
+            required
+         },
+         exp_date: {
+            required
+         },
+         cvc: {
+            required
+         }
+      }
+   },
    computed: {
       ...mapState({
          cartProducts: state => state.cart.cartProducts
       })
    },
+   created () {
+      if (this.cartProducts.length === 0) {
+         this.$router.push({ name: 'productsCatalog' })
+      }
+   },
    mixins: [
       isLastItemMixin,
       cartUtilitiesMixin
-   ]
+   ],
+   methods: {
+      async onSubmint () {
+         this.loading = true
+         try {
+            if (!this.$v.$invalid) {
+               this.resetOrderProducts()
+               this.cartProducts.forEach((cartProd) => {
+                  this.order.products.push({
+                     id: cartProd.id,
+                     price: cartProd.product.price,
+                     quantity: cartProd.quantity
+                  })
+               })
+
+               this.order.total = this.totalCart(this.cartProducts)
+
+               await CheckoutService.create(this.order)
+            }
+         } catch (error) {
+            const { status } = error.response
+
+            if (status === 422) {
+               this.$toast.error('Cartão recusado')
+            }
+         } finally {
+            this.loading = false
+         }
+      },
+      resetOrderProducts () {
+         this.order.products = []
+      }
+   }
 }
 </script>

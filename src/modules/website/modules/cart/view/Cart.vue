@@ -28,7 +28,7 @@
                                  type="button"
                                  value="+"
                                  class="plus">
-                              <input type="number" readonly step="1" max="99" min="1" :value="item.qty" title="Qty" class="qty"
+                              <input type="number" readonly step="1" max="99" min="1" :value="item.quantity" title="Qty" class="qty"
                                      size="4">
                               <input
                                  @click="decrementQty(item.product)"
@@ -106,7 +106,7 @@ export default {
          removeProductCart: 'REMOVE_PRODUCT_CART'
       }),
       aboveAvailableQuantity (cartProduct) {
-         return cartProduct.qty > cartProduct.product.quantity
+         return cartProduct.quantity > cartProduct.product.quantity
       }
    }
 }

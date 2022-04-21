@@ -135,7 +135,7 @@ export default {
             description: '',
             url: '',
             price: 0,
-            quantity: null,
+            quantity: 0,
             category: '',
             specifications: [],
             image: null,

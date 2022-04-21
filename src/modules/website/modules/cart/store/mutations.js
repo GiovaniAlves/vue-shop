@@ -11,7 +11,7 @@ export default {
       // Se não estiver no carrinho adiciona
       if (!inCart) {
          state.cartProducts.push({
-            qty: 1,
+            quantity: 1,
             id: product.id,
             product
          })
@@ -27,7 +27,7 @@ export default {
    INCREMENT_QTY_PRODUCT_CART (state, product) {
       state.cartProducts = state.cartProducts.map((prodCart, index) => {
          if (prodCart.id === product.id) {
-            state.cartProducts[index].qty++
+            state.cartProducts[index].quantity++
          }
 
          return state.cartProducts[index]
@@ -37,10 +37,10 @@ export default {
    DECREMENT_QTY_PRODUCT_CART (state, product) {
       state.cartProducts = state.cartProducts.filter((prodCart, index) => {
          if (prodCart.id === product.id) {
-            state.cartProducts[index].qty--
+            state.cartProducts[index].quantity--
          }
 
-         if (state.cartProducts[index].qty > 0) {
+         if (state.cartProducts[index].quantity > 0) {
             return state.cartProducts[index]
          }
       })

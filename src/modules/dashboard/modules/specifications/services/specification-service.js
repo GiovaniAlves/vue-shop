@@ -2,7 +2,7 @@ import axiosClient from '@/axios'
 
 const routeAuthenticated = '/auth/specification'
 
-// Rota que seta todas as especificações no select da página do produto
+// Devolve todas as especificações 'sem paginação' para setá-las no select da página do produto
 const all = () => {
    return axiosClient.get('/auth/allSpecifications')
 }

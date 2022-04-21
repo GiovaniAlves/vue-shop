@@ -13,7 +13,7 @@ export default {
 
       // retorna a quantidade máxima de produtos disponiveis (se o usuário incluir uma qtd maior do que a disponível)
       qtyProduct (cardProduct) {
-         return cardProduct.qty <= cardProduct.product.quantity ? cardProduct.qty : cardProduct.product.quantity
+         return cardProduct.quantity <= cardProduct.product.quantity ? cardProduct.quantity : cardProduct.product.quantity
       }
    }
 }
