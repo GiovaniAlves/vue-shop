@@ -185,10 +185,10 @@ import isLastItemMixin from '@/modules/website/mixins/is-last-item'
 import cartUtilitiesMixin from '@/modules/website/mixins/cart-utilities'
 import { required } from 'vuelidate/lib/validators'
 import { TheMask } from 'vue-the-mask'
-import CheckoutService from '@/modules/website/modules/checkout/service/checkout-service'
+import OrderService from '@/modules/website/modules/order/service/order-service'
 
 export default {
-   name: 'Checkout',
+   name: 'OrderCheckout',
    components: { TheMask },
    data () {
       return {
@@ -245,7 +245,7 @@ export default {
 
                this.order.total = this.totalCart(this.cartProducts)
 
-               await CheckoutService.create(this.order)
+               await OrderService.create(this.order)
             }
          } catch (error) {
             const { status } = error.response

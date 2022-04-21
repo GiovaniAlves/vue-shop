@@ -34,7 +34,7 @@
                      <i class="bi bi-person"></i> Olá, {{ user.data.name }}
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                     <li><a class="dropdown-item" href="#">Meus Pedidos</a></li>
+                     <li><router-link :to="{ name: 'Orders' }" class="dropdown-item">Meus Pedidos</router-link></li>
                   </ul>
                </li>
             </ul>
