@@ -1,6 +1,7 @@
 <template>
    <div class="container my-5">
       <div class="pt-3 pb-4">
+
          <div class="card mb-3">
             <div class="card-body">
                <p class="fw-lighter fs-5">Detalhes do Pedido: #452</p>
@@ -12,6 +13,7 @@
                </p>
             </div>
          </div>
+
          <div class="card mb-3">
             <div class="card-body">
               <div class="d-flex justify-content-between">
@@ -42,6 +44,7 @@
               </div>
             </div>
          </div>
+
          <div class="card mb-3">
             <div class="card-body table-responsive">
                <table class="table table-borderless">
@@ -81,7 +84,7 @@
                   </tbody>
                </table>
                <div class="d-flex justify-content-end">
-                  <p class="fst-italic fw-bold fs-6">Total: R$ 4.500,00</p>
+                  <p class="fst-italic fw-bold fs-6">Total da Compra: R$ 4.500,00</p>
                </div>
             </div>
          </div>

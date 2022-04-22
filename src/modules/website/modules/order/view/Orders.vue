@@ -1,7 +1,8 @@
 <template>
    <div class="container my-5">
       <div class="pt-3 pb-4">
-         <div class="d-flex justify-content-center mt-3">
+
+         <div v-if="recentlyPurchased" class="d-flex justify-content-center mt-3">
             <div class="card text-white bg-success">
                <div class="card-body">
                   <h5 class="card-title"><i class="bi bi-check2-all"></i> Sua compra foi aprovada.</h5>
@@ -25,48 +26,15 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                     <th scope="row"># 1</th>
-                     <td>20/04/2019</td>
-                     <td>2392 Main Avenue, Penasauka, New Jersey 02149</td>
-                     <td><span class="badge bg-secondary">Pedido <i class="bi bi-arrow-clockwise"></i></span></td>
+                  <tr v-for="order in orders.data" :key="order.id">
+                     <th scope="row"># {{ order.id }}</th>
+                     <td>{{ order.date }}</td>
+                     <td>Rua: Antônio Cezar, 7851</td>
+                     <td><RoundedColorsLabels :status="order.status" :status_label="order.status_label" /> </td>
                      <td>
-                        <router-link :to="{ name: 'orderDetail', params: { id: 3 } }" class="btn btn-primary">
+                        <router-link :to="{ name: 'orderDetail', params: { id: order.id }}" class="btn btn-primary">
                            <i class="bi bi-eye-fill"></i> <small class="fw-bold text-white">Detalhes</small>
                         </router-link>
-                     </td>
-                  </tr>
-                  <tr>
-                     <th scope="row"># 2</th>
-                     <td>20/04/2019</td>
-                     <td>2392 Main Avenue, Penasauka, New Jersey 02149</td>
-                     <td><span class="badge bg-primary">Pago <i class="bi bi-check-all"></i></span></td>
-                     <td>
-                        <button class="btn btn-primary">
-                           <i class="bi bi-eye-fill"></i> <small class="fw-bold text-white">Detalhes</small>
-                        </button>
-                     </td>
-                  </tr>
-                  <tr>
-                     <th scope="row"># 2</th>
-                     <td>20/04/2019</td>
-                     <td>2392 Main Avenue, Penasauka, New Jersey 02149</td>
-                     <td><span class="badge bg-success">Entregue <i class="bi bi-truck"></i></span></td>
-                     <td>
-                        <button class="btn btn-primary">
-                           <i class="bi bi-eye-fill"></i> <small class="fw-bold text-white">Detalhes</small>
-                        </button>
-                     </td>
-                  </tr>
-                  <tr>
-                     <th scope="row"># 3</th>
-                     <td>20/04/2019</td>
-                     <td>2392 Main Avenue, Penasauka, New Jersey 02149</td>
-                     <td><span class="badge bg-danger">Cancelado <i class="bi bi-x-lg"></i></span></td>
-                     <td>
-                        <button class="btn btn-primary">
-                           <i class="bi bi-eye-fill"></i> <small class="fw-bold text-white">Detalhes</small>
-                        </button>
                      </td>
                   </tr>
                   </tbody>
@@ -78,7 +46,21 @@
 </template>
 
 <script>
+import OrderService from '@/modules/website/modules/order/service/order-service'
+import RoundedColorsLabels from '@/modules/website/modules/order/components/RoundedColorsLabels'
+
 export default {
-   name: 'MyOrders'
+   name: 'Orders',
+   components: { RoundedColorsLabels },
+   data () {
+     return {
+        orders: [],
+        loading: false,
+        recentlyPurchased: this.$route.params.recentlyPurchased || false
+     }
+   },
+   async created () {
+      this.orders = await OrderService.index()
+   }
 }
 </script>

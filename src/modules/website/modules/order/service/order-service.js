@@ -2,8 +2,9 @@ import axiosClient from '@/axios'
 
 const routeAuthenticated = '/auth/order'
 
-const index = () => {
-   return axiosClient.get(`${routeAuthenticated}`)
+const index = async () => {
+   const response = await axiosClient.get(`${routeAuthenticated}`)
+   return response.data
 }
 
 const get = (id) => {

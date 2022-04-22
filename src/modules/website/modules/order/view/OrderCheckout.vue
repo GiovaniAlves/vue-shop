@@ -180,7 +180,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import isLastItemMixin from '@/modules/website/mixins/is-last-item'
 import cartUtilitiesMixin from '@/modules/website/mixins/cart-utilities'
 import { required } from 'vuelidate/lib/validators'
@@ -230,6 +230,9 @@ export default {
       cartUtilitiesMixin
    ],
    methods: {
+      ...mapMutations({
+         clearCart: 'CLEAR_CART'
+      }),
       async onSubmint () {
          this.loading = true
          try {
@@ -246,6 +249,8 @@ export default {
                this.order.total = this.totalCart(this.cartProducts)
 
                await OrderService.create(this.order)
+               this.clearCart()
+               this.$router.push({ name: 'Orders', params: { recentlyPurchased: true } })
             }
          } catch (error) {
             const { status } = error.response
