@@ -189,3 +189,21 @@
     grid-area: payment;
 }
 /** End Checkout Page**/
+
+
+/** Order Detail Page**/
+
+.card-address-payment {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 900px) {
+    .card-address-payment {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+}
+
+/** End Order Detail Page**/

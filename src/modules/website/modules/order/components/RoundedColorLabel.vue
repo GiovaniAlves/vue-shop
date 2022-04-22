@@ -9,7 +9,7 @@
 
 <script>
 export default {
-   name: 'RoundedColorsLabels',
+   name: 'RoundedColorLabel',
    props: {
       status: String,
       status_label: String

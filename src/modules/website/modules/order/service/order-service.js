@@ -7,8 +7,9 @@ const index = async () => {
    return response.data
 }
 
-const get = (id) => {
-   return axiosClient.get(`${routeAuthenticated}/${id}`)
+const get = async (id) => {
+   const response = await axiosClient.get(`${routeAuthenticated}/${id}`)
+   return response.data
 }
 
 const search = (status) => {

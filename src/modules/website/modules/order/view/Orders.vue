@@ -26,7 +26,7 @@
                      <thead>
                      <tr>
                         <th scope="col">Pedido</th>
-                        <th scope="col">Data</th>
+                        <th scope="col">Data/Hora</th>
                         <th scope="col">Endereço</th>
                         <th scope="col">Status</th>
                         <th></th>
@@ -35,7 +35,7 @@
                      <tbody>
                      <tr v-for="order in orders.data" :key="order.id">
                         <th scope="row"># {{ order.id }}</th>
-                        <td>{{ order.date }}</td>
+                        <td>{{ order.date_time }}</td>
                         <td>Rua: Antônio Cezar, 7851</td>
                         <td><RoundedColorsLabels :status="order.status" :status_label="order.status_label" /> </td>
                         <td>
@@ -55,7 +55,7 @@
 
 <script>
 import OrderService from '@/modules/website/modules/order/service/order-service'
-import RoundedColorsLabels from '@/modules/website/modules/order/components/RoundedColorsLabels'
+import RoundedColorsLabels from '@/modules/website/modules/order/components/RoundedColorLabel'
 
 export default {
    name: 'Orders',
@@ -63,19 +63,14 @@ export default {
    data () {
      return {
         orders: [],
-        loading: false,
         recentlyPurchased: this.$route.params.recentlyPurchased || false
      }
    },
    async created () {
-      this.loading = true
-
       try {
          this.orders = await OrderService.index()
       } catch (e) {
          console.log(e)
-      } finally {
-         this.loading = false
       }
    }
 }
