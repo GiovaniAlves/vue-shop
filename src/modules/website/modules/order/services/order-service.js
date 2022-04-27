@@ -12,10 +12,6 @@ const get = async (id) => {
    return response.data
 }
 
-const search = (status) => {
-   return axiosClient.post(`${routeAuthenticated}/search`, status)
-}
-
 const create = (order) => {
    return axiosClient.post(`${routeAuthenticated}`, order)
 }
@@ -23,6 +19,5 @@ const create = (order) => {
 export default {
    index,
    get,
-   search,
    create
 }

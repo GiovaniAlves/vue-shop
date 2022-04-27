@@ -30,7 +30,7 @@
                   <td>{{ product.name }}</td>
                   <td>R$ {{ product.price | format_price_br }}</td>
                   <td>{{ product.quantity }}</td>
-                  <td>{{ product.category }}</td>
+                  <td>{{ product.category_label }}</td>
                   <td>
                      <router-link :to="{ name: 'productsEdit', params: { id: product.id } }"
                                   class="btn btn-primary btn-sm mx-sm-1">

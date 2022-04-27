@@ -185,7 +185,7 @@ import isLastItemMixin from '@/modules/website/mixins/is-last-item'
 import cartUtilitiesMixin from '@/modules/website/mixins/cart-utilities'
 import { required } from 'vuelidate/lib/validators'
 import { TheMask } from 'vue-the-mask'
-import OrderService from '@/modules/website/modules/order/service/order-service'
+import OrderService from '@/modules/website/modules/order/services/order-service'
 
 export default {
    name: 'OrderCheckout',

@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import OrderService from '@/modules/website/modules/order/service/order-service'
+import OrderService from '@/modules/website/modules/order/services/order-service'
 import RoundedColorLabel from '@/modules/website/modules/order/components/RoundedColorLabel'
 
 export default {
@@ -88,8 +88,7 @@ export default {
             client: {
                name: ''
             },
-            orderProducts: [],
-            products: []
+            orderProducts: []
          },
          loading: false
       }

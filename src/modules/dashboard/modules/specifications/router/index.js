@@ -3,17 +3,17 @@ const SpecificationsForm = () => import('./../views/SpecificationsForm.vue')
 
 export default [
    {
-      path: 'espeficacoes',
+      path: 'especificacoes',
       name: 'specifications',
       component: SpecificationsHome
    },
    {
-      path: 'espeficacao/cadastrar',
+      path: 'especificacao/cadastrar',
       name: 'specificationsCreate',
       component: SpecificationsForm
    },
    {
-      path: 'espeficacao/:id',
+      path: 'especificacao/:id',
       name: 'specificationsEdit',
       component: SpecificationsForm
    }

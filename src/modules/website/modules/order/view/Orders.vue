@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import OrderService from '@/modules/website/modules/order/service/order-service'
+import OrderService from '@/modules/website/modules/order/services/order-service'
 import RoundedColorsLabels from '@/modules/website/modules/order/components/RoundedColorLabel'
 
 export default {

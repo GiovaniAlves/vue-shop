@@ -8,12 +8,21 @@ Fotos
 
 ### Organização do Projeto (em Módulos)
 - Auth
+  - Login
+  - Register
 - Dashboard
+  - Home 
   - Products
-  - Sales
-  - Specification
-  - Reports
+  - Specifications
 - Website
+  - Home
+  - Cart
+  - ProductsList
+  - ProductDetail
+  - Order
+    - OrdersList
+    - OrderCheckout
+    - OrderDetail
 
 ### Compilar para desenvolvimento
 ```

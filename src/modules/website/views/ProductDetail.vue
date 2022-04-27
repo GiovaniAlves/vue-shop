@@ -31,7 +31,7 @@
                   </div>
                   <div class="col-12 col-lg-6">
                      <h5 class="card-title fs-6">{{ currentProduct.name }}</h5>
-                     <small class="fw-light fst-italic text-primary">{{ currentProduct.category }}</small>
+                     <small class="fw-light fst-italic text-primary">{{ currentProduct.category_label }}</small>
                      <small class="d-block text-secondary fst-italic pt-1">{{ currentProduct.short_description }}</small>
                      <p class="card-text fw-bold fst-italic fs-4">R$ {{ currentProduct.price | format_price_br }}</p>
                      <small class="fw-light fst-italic">Quantidade:
