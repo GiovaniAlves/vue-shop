@@ -73,6 +73,13 @@ export default {
          if (confirm(`Deseja realmente excluir o produto ${product.name}?`)) {
             store.dispatch('deleteProduct', product.id).then(() => {
                this.$toast.success('Deletado com sucesso!')
+            }).catch((e) => {
+               const { status } = e.response
+               const { message } = e.response.data
+               if (status === 403) {
+                  this.$toast.error(message)
+               }
+               console.log('Error ao excluir:', e.response)
             })
          }
       }

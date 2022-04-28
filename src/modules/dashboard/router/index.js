@@ -4,7 +4,6 @@ import specificationsRoutes from './../modules/specifications/router'
 const Home = () => import('../views/Home.vue')
 const Reports = () => import('../views/Reports.vue')
 
-// TODO tem que criar mais uma rota para carregar os gráficos nela posso deixar a rota como se fosse a padrão.
 export default [
    {
       path: '',

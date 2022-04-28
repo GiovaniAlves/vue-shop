@@ -48,12 +48,8 @@ export default {
    },
 
    async deleteProduct ({ commit }, id) {
-      try {
-         const response = await ProductService.destroy(id)
-         commit('DELETE_PRODUCT', id)
-         return response
-      } catch (e) {
-         console.log('deleteProduct error: ', e)
-      }
+      const response = await ProductService.destroy(id)
+      commit('DELETE_PRODUCT', id)
+      return response
    }
 }
