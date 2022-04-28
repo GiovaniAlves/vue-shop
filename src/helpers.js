@@ -32,11 +32,8 @@ const generateChartOptions = (type) => {
          plugins.tooltip = {
             callbacks: {
                label (tooltip) {
-                  console.log('tooltip doughnut: ', tooltip)
-
                   const label = tooltip.label || ''
-                  const value = currencyFormatter().format(tooltip.dataset.data[tooltip.datasetIndex])
-                  return `${label}: ${value}`
+                  return `${label}`
                }
             }
          }
@@ -90,7 +87,7 @@ const generateChartData = ({ items, type, label, backgroundColors }) => {
                   borderWidth: 0
                }
             ],
-            labels: items.map(item => item.label)
+            labels: items.map(item => `${item.label}: ${currencyFormatter().format(item.total)}`)
          }
    }
 }

@@ -36,12 +36,14 @@ import { mapActions } from 'vuex'
 import ToolbarByMonth from '@/modules/dashboard/components/ToolbarByMonth'
 import { generateChartConfigs } from '@/helpers'
 import ReportService from '@/modules/dashboard/services/report-service'
+import moment from 'moment'
 
 export default {
    name: 'Reports',
    components: { ToolbarByMonth },
    data () {
       return {
+         currentDate: moment().format('MM-YYYY'),
          chartSalesByCategories: undefined,
          chartSalesByStatus: undefined,
          chartQtyNewUsers: undefined,
@@ -64,8 +66,12 @@ export default {
          salesByCategory: []
       }
    },
-   created () {
+   async created () {
       this.setTitle({ title: 'Painel' })
+
+      await this.changeMonthSaleCategory(this.currentDate)
+      await this.changeMonthSaleStatus(this.currentDate)
+      await this.changeMonthUsers(this.currentDate)
    },
    methods: {
       ...mapActions(['setTitle']),
@@ -83,53 +89,51 @@ export default {
       async changeMonthSaleCategory (date) {
          await this.getSales(date, 'category')
 
-         this.setCharts('chartSalesByCategories', {
-            items: this.salesByCategory,
-            type: 'doughnut',
-            label: 'Vendas por Categoria',
-            backgroundColors: ['#FF6347', '#87CEFA', '#3CB371', '#C0C0C0', '#FFDEAD']
-         })
+         this.createOrUpdateChart('chartSalesByCategories', generateChartConfigs({
+               items: this.salesByCategory,
+               type: 'doughnut',
+               label: 'Vendas por Categoria',
+               backgroundColors: ['#FF6347', '#87CEFA', '#3CB371', '#C0C0C0', '#FFDEAD']
+            }
+         ))
       },
       async changeMonthSaleStatus (date) {
          await this.getSales(date, 'status')
 
-         this.setCharts('chartSalesByStatus', {
+         this.createOrUpdateChart('chartSalesByStatus', generateChartConfigs({
             items: this.salesByStatus,
             type: 'doughnut',
             label: 'Vendas por Status',
-            backgroundColors: ['#F0E68C', '#D8BFD8', '#3CB371', '#BA55D3', '#8B4513']
-         })
+            backgroundColors: ['#F0E68C', '#3CB371', '#FF0000', '#87CEFA', '#363636']
+         }))
       },
       async changeMonthUsers (date) {
          await this.getQtyUsers(date)
 
-         this.setCharts('chartQtyNewUsers', {
+         this.createOrUpdateChart('chartQtyNewUsers', generateChartConfigs({
             items: this.qtyUsers,
             type: 'bar',
             label: 'Novos Usuários Por Mês',
             backgroundColors: ['#3CB371']
-         })
+         }))
       },
 
-      createChart (chartId, options) {
-         const ref = this.$refs[chartId]
-         const ctx = ref.getContext('2d')
-         return new Chart(ctx, options)
-      },
-      setCharts (refIdChart, values) {
-         const chartConfigs = generateChartConfigs(values)
-
+      createOrUpdateChart (refIdChart, options) {
          if (this[refIdChart]) { // Ex.: this.chartQtyNewUsers - Dessa forma posso acessar de forma dinâmica as props (data) da instância vue.
-            this[refIdChart].data.datasets = chartConfigs.data.datasets
+            this[refIdChart].data.datasets = options.data.datasets
 
-            if (chartConfigs.data.labels) {
-               this[refIdChart].data.labels = chartConfigs.data.labels
+            if (options.data.labels) {
+               this[refIdChart].data.labels = options.data.labels
             }
 
             this[refIdChart].update()
-         } else {
-            this[refIdChart] = this.createChart(refIdChart, chartConfigs)
+            return this[refIdChart] // Faço o retorno para parar a execução e impedir que o gráfico seja gerado novamente.
          }
+
+         const ref = this.$refs[refIdChart]
+         const ctx = ref.getContext('2d')
+         this[refIdChart] = new Chart(ctx, options)
+         return this[refIdChart]
       }
    }
 }
