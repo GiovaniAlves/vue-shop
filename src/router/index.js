@@ -41,18 +41,19 @@ router.beforeEach(async (to, from, next) => {
       if (token) {
          try {
             // se o token ainda for válido irá prosseguir normalmente
-            await store.dispatch('user')
+            const response = await store.dispatch('user')
+            const { user } = response.data
 
             // só podem acessar o painel usuários adm
-            /* if (to.matched.some(route => route.meta.isAdmin)) {
-               try {
-                  await store.dispatch('painelProduct')
+            if (to.matched.some(route => route.meta.isAdmin)) {
+               // senão tiver a propriedade is_admin mando para o home do site.
+               // eslint-disable-next-line no-prototype-builtins
+               if (user.hasOwnProperty('is_admin')) {
                   return next()
-               } catch (e) {
-                  // console.log('Permission error:', e)
+               } else {
                   return next({ name: 'home' })
                }
-            } */
+            }
 
             return next()
          } catch (e) {

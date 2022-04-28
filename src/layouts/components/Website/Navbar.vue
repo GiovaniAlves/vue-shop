@@ -35,6 +35,7 @@
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                      <li><router-link :to="{ name: 'Orders' }" class="dropdown-item">Meus Pedidos</router-link></li>
+                     <li @click.prevent="logout" ><a href="#" class="dropdown-item">Sair</a></li>
                   </ul>
                </li>
             </ul>
@@ -46,6 +47,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import store from '@/store'
 
 export default {
    name: 'Navbar',
@@ -54,6 +56,16 @@ export default {
          cartProducts: state => state.cart.cartProducts,
          user: state => state.auth.user
       })
+   },
+   methods: {
+      logout () {
+         try {
+            store.dispatch('logout')
+            this.$router.push({ name: 'login' })
+         } catch (e) {
+            console.log('Error logout...:', e)
+         }
+      }
    }
 }
 </script>

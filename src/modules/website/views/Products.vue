@@ -14,10 +14,9 @@
                      <input v-model="categories"
                             class="form-check-input"
                             type="checkbox"
-                            value="Eletrodoméstico"
-                            id="Eletrodoméstico"
+                            value="home_appliance"
                      >
-                     <label class="form-check-label" for="Eletrodoméstico">
+                     <label class="form-check-label">
                         Eletrodoméstico
                      </label>
                   </div>
@@ -25,10 +24,9 @@
                      <input v-model="categories"
                             class="form-check-input"
                             type="checkbox"
-                            value="Eletroeletrônico"
-                            id="Eletroeletrônico"
+                            value="electronic"
                      >
-                     <label class="form-check-label" for="Eletroeletrônico">
+                     <label class="form-check-label">
                         Eletroeletrônico
                      </label>
                   </div>
@@ -36,10 +34,9 @@
                      <input v-model="categories"
                             class="form-check-input"
                             type="checkbox"
-                            value="Hardware"
-                            id="Hardware"
+                            value="hardware"
                      >
-                     <label class="form-check-label" for="Hardware">
+                     <label class="form-check-label">
                         Hardware
                      </label>
                   </div>
@@ -82,7 +79,7 @@
                            <router-link :to="{ name: 'productDetail', params: { url: product.url } }" style="color: #0c0b0b; text-decoration: none">
                               <h5 class="card-title fs-6">{{ product.name }}</h5>
                            </router-link>
-                           <small class="fw-light fst-italic">{{ product.category }}</small>
+                           <small class="fw-light fst-italic">{{ product.category_label }}</small>
                            <p class="card-text fw-bold">R$ {{ product.price | format_price_br }}</p>
                            <a
                               @click.prevent="addProductCart(product)"

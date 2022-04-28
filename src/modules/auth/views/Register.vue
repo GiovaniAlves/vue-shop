@@ -65,7 +65,7 @@ export default {
 
          try {
             await this.register(this.user)
-            this.$router.push(this.$route.query.redirect || { name: 'dashboard' })
+            this.$router.push(this.$route.query.redirect || { path: '/painel' })
          } catch (error) {
             const { status } = error.response
             const errorResponse = error.response.data.errors

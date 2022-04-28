@@ -12,7 +12,7 @@ const get = (idOrUrl, authenticated) => {
    if (authenticated) {
       return axiosClient.get(`${routeAuthenticated}/${idOrUrl}`)
    } else {
-      return axiosClient.get(`${route}/${idOrUrl}`)
+      return axiosClient.get(`${route}/showProduct/${idOrUrl}`)
    }
 }
 
@@ -26,7 +26,7 @@ const save = (product) => {
 
 const search = (urlPaginated, filters) => {
    if (urlPaginated) {
-      // Rota da paginação já vem autenticada
+      // Rota da paginação já vem autenticada - Pois essa é a rota da parte administrativa do sistema
       return axiosClient.post(`${urlPaginated}`, filters)
    } else {
       return axiosClient.post(`${route}/search`, filters)
