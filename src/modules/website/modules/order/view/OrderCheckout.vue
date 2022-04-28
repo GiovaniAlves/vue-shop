@@ -242,7 +242,8 @@ export default {
                   this.order.products.push({
                      id: cartProd.id,
                      price: cartProd.product.price,
-                     quantity: cartProd.quantity
+                     // retorna a quantidade máxima de produtos disponiveis (se o usuário incluir uma qtd maior do que a disponível)
+                     quantity: this.qtyProduct(cartProd)
                   })
                })
 
