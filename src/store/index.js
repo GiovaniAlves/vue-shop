@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import VuexPersistence from 'vuex-persist'
+import VuexPersistence from 'vuex-persist'
 
 import auth from '@/modules/auth/store'
 import cart from '@/modules/website/modules/cart/store'
@@ -25,10 +25,10 @@ const actions = {
    }
 }
 
-/* const vuexLocal = new VuexPersistence({
+const vuexLocal = new VuexPersistence({
    storage: window.localStorage,
-   reducer: (state) => ({ cart: state.cart }) // only save navigation module
-}) */
+   reducer: (state) => ({ cart: state.cart }) // only save cart module
+})
 
 export default new Vuex.Store({
    state,
@@ -39,11 +39,10 @@ export default new Vuex.Store({
       cart,
       specification,
       product
-   }
-   /* -- SIMPLE USAGE --
+   },
    plugins: [
       vuexLocal.plugin
-   ] */
+   ]
    /* -- USAGE WITH MODULES --
    plugins: [
       new VuexPersistence({
