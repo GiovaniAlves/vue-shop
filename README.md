@@ -3,7 +3,7 @@
 ## <p align="center"> <i>VUE SHOP</i> </p>
 
 <div align="center">
-  <img width="800" src="public/img/project/vue-shop01.jpg" class="d-block w-100" alt="...">
+  <img width="800" src="https://raw.githubusercontent.com/GiovaniAlves/vue-shop/master/public/img/project/vue-shop01.JPG" class="d-block w-100" alt="...">
 </div>
 
 ### Organização do Projeto (em Módulos)
