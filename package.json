@@ -24,6 +24,7 @@
     "jquery": "^3.6.0",
     "moment": "^2.29.3",
     "popper.js": "^1.16.1",
+    "serve-static": "^1.15.0",
     "v-money": "^0.8.1",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
