@@ -7,7 +7,7 @@ app.use(serveStatic(path.join(__dirname, 'dist')))
 
 app.route('/*')
     .get(function (res) {
-          res.sendFile(path.join(__dirname, '/dist/index.html'))
+          res.sendFile(path.join(__dirname, 'dist/index.html'))
 })
 
 const port = process.env.PORT || 5000
