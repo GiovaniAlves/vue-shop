@@ -11,7 +11,7 @@
                         <input class="form-check-input" type="radio" name="flexRadioDefault" checked
                                id="flexRadioDefault1">
                         <label class="form-check-label" for="flexRadioDefault1">
-                           Giovani Alves
+                           {{ user.data.name }}
                         </label>
                      </div>
                      <div class="card border-secondary mb-1" style="max-width: 18rem;">
@@ -217,7 +217,8 @@ export default {
    },
    computed: {
       ...mapState({
-         cartProducts: state => state.cart.cartProducts
+         cartProducts: state => state.cart.cartProducts,
+         user: state => state.auth.user
       })
    },
    created () {
