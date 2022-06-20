@@ -1,5 +1,3 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://siriondev.com/img/vuejs.430af113.jpg" width="400"></a></p>
-
 ## <p align="center"> <i>VUE SHOP</i> </p>
 
 <div align="center">
